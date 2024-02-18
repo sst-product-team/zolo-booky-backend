@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "Hey, we see this is you first issue! Make sure you adhere to the quality standards and checks."
+        pr-message: "Hey, we see this is you first PR! Congratulations, make sure you adhere to the code quality standards and checks."
