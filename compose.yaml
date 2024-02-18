@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=booky'
+      - 'MYSQL_PASSWORD=spring-user-password'
+      - 'MYSQL_ROOT_PASSWORD=root-password'
+      - 'MYSQL_USER=spring-user'
+    ports:
+      - '3306'
