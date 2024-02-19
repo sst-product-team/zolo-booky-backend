@@ -32,7 +32,7 @@ public class BookEntity {
 	@Column(nullable = false)
 	BOOK_STATUS book_status;
 
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false)
 	Date book_next_available;
 
 	@Column(nullable = false)
