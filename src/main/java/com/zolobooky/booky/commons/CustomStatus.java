@@ -2,9 +2,9 @@ package com.zolobooky.booky.commons;
 
 public class CustomStatus {
 
-	public enum BOOK_STATUS {
+	public enum BookStatus {
 
-		available, unavailable, delisted
+		AVAILABLE, UNAVAILABLE, DELISTED
 
 	}
 

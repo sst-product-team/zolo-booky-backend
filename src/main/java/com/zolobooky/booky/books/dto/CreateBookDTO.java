@@ -2,28 +2,18 @@ package com.zolobooky.booky.books.dto;
 
 import java.sql.Date;
 
-import com.zolobooky.booky.commons.CustomStatus.BookStatus;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BookDTO {
-
-	Integer id;
+public class CreateBookDTO {
 
 	String name;
 
 	String description;
 
-	BookStatus status;
-
 	Date availability;
-
-	Double rating;
-
-	byte[] thumbnail;
 
 	Integer owner;
 
