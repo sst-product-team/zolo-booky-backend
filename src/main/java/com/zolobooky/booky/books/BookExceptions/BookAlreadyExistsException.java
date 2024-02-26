@@ -1,0 +1,9 @@
+package com.zolobooky.booky.books.BookExceptions;
+
+public class BookAlreadyExistsException extends RuntimeException {
+
+	public BookAlreadyExistsException(String message) {
+		super(message);
+	}
+
+}
