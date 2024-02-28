@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.zolobooky.booky.books.BookExceptions.BadRequestException;
 import com.zolobooky.booky.books.BookExceptions.BookAlreadyExistsException;
 import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
 
@@ -28,6 +29,16 @@ public class GlobalExceptionHandler {
 		resp.setStatusCode("" + HttpStatus.CONFLICT);
 
 		return new ResponseEntity<>(resp, HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<ExceptionResponse> bookBadRequest(BadRequestException badRequestException) {
+		ExceptionResponse resp = new ExceptionResponse();
+
+		resp.setMessage(badRequestException.getMessage());
+		resp.setStatusCode("" + HttpStatus.BAD_REQUEST);
+
+		return new ResponseEntity<ExceptionResponse>(resp, HttpStatus.BAD_REQUEST);
 	}
 
 }
