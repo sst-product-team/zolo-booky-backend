@@ -37,8 +37,9 @@ public class BookEntity {
 
 	private Double rating;
 
-	byte[] thumbnail;
+	String thumbnail;
 
+	@Column(nullable = false)
 	Integer owner;
 
 }
