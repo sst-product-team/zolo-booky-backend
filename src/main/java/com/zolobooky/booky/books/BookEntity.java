@@ -32,7 +32,7 @@ public class BookEntity {
 	@Column(nullable = false)
 	BookStatus status = BookStatus.AVAILABLE;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	Date availability;
 
 	private Double rating;

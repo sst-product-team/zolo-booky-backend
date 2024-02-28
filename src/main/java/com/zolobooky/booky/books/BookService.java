@@ -45,6 +45,7 @@ public class BookService {
 
 		List<BookEntity> books = this.bookRepository.findByStatusOrderByName(BookStatus.AVAILABLE);
 		BookEntity newBookToSave = this.modelMapper.map(createBookDTO, BookEntity.class);
+
 		for (var book : books) {
 			if (book.getName().equals(newBookToSave.getName()) && book.getOwner().equals(newBookToSave.getOwner())) {
 				throw new BookAlreadyExistsException(
@@ -52,7 +53,6 @@ public class BookService {
 								book.getName(), book.getId()));
 			}
 		}
-
 		return this.bookRepository.save(newBookToSave);
 	}
 
