@@ -1,39 +1,44 @@
 package com.zolobooky.booky.appeals;
 
 import com.zolobooky.booky.appeals.dto.AppealDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AppealService {
 
-    public final List<AppealDTO> appealDemoData = Arrays.asList(new AppealDTO[] {
-            new AppealDTO(0, 0, 0),
-            new AppealDTO(1, 1, 1),
-            new AppealDTO(2, 2, 2)
-    });
+    @Autowired
+    private final AppealRepository appealRepository;
 
-    public List<AppealDTO> getAllAppeals() {
-        return appealDemoData;
+    private final ModelMapper modelMapper;
+
+    public AppealService(AppealRepository appealRepository, ModelMapper modelMapper) {
+        this.appealRepository = appealRepository;
+        this.modelMapper = modelMapper;
     }
 
-    public AppealDTO getAppeal(Integer trans_id) {
-        for (AppealDTO appealDTO: appealDemoData) {
-            if (appealDTO.getTrans_id().equals(trans_id)) {
-                return appealDTO;
-            }
-        }
-
-        return null;
+    public List<AppealEntity> getAllAppeals() {
+        return appealRepository.findAll();
     }
 
-    public AppealDTO addAppeal(AppealDTO appealDTO) {
-        Integer appealId = appealDemoData.size();
-        appealDTO.setTrans_id(appealId);
+    public Optional<AppealEntity> getAppeal(Integer trans_id) {
+        return appealRepository.findById(trans_id);
+    }
 
-        return appealDTO;
+    public AppealEntity createAppeal(AppealDTO appealDTO) {
+        AppealEntity appealEntity = modelMapper.map(appealDTO, AppealEntity.class);
+        return appealRepository.save(appealEntity);
+    }
+
+    public Optional<AppealEntity> updateAppealStatus(Integer trans_id, AppealDTO appealDTO) {
+        AppealEntity appealDataEntity = modelMapper.map(appealDTO, AppealEntity.class);
+        Optional<AppealEntity> savedEntity = appealRepository.findById(trans_id);
+
+//        savedEntity.ifPresent(appealEntity -> appealEntity.setTrans_status(CustomStatus.TransactionStatus.valueOf(appealDTO.getTrans_status())));
+        return savedEntity;
     }
 
 }

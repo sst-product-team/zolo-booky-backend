@@ -19,6 +19,10 @@ public class AppealDTO {
     Date status_change_date;
     Date completion_date;
 
+    public AppealDTO() {
+
+    }
+
     public AppealDTO(Integer trans_id, Integer book_id, Integer borrower_id) {
         setTrans_id(trans_id);
         setBook_id(book_id);
