@@ -15,7 +15,7 @@ public class ListBookDTO {
 
 	BookStatus status;
 
-	byte[] thumbnail;
+	String thumbnail;
 
 	Integer owner;
 

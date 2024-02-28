@@ -1,0 +1,12 @@
+            o                  o                o                      o                 o                       o 
+           O                  O                 O                     O                  O                      O  
+           o                  O                 o                     O                  o                      o  
+           O                  o                 o                     o                  o                      o  
+ooOO .oOo. o  .oOo.           OoOo. .oOo. .oOo. O  o  O   o           OoOo. .oOoO' .oOo  O  o  .oOo. 'OoOo. .oOoO  
+  o  O   o O  O   o           O   o O   o O   o OoO   o   O           O   o O   o  O     OoO   OooO'  o   O o   O  
+ O   o   O o  o   O           o   O o   O o   O o  O  O   o           o   O o   O  o     o  O  O      O   o O   o  
+OooO `OoO' Oo `OoO'           `OoO' `OoO' `OoO' O   o `OoOO           `OoO' `OoO'o `OoO' O   o `OoO'  o   O `OoO'o 
+                    ooooooooo                             o ooooooooo                                              
+                                                       OoO'                                                        
+------------------------------------------- ${application.version} ------------------------------------------------
+-------------------------------------------- ${application.title} -------------------------------------------------
