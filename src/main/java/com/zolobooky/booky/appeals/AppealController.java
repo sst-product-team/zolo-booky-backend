@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 //@RequestMapping("/v0/appeals")
@@ -47,10 +46,10 @@ public class AppealController {
         return ResponseEntity.ok(this.modelMapper.map(appealRegistered, AppealDTO.class));
     }
 
-//    @PatchMapping("/v0/appeals/{trans_id}")
-//    public ResponseEntity<AppealDTO> updateAppealStatus(@PathVariable Integer trans_id, @RequestBody AppealDTO appealDTO) {
-//        Optional<AppealEntity> updatedAppeal = appealService.updateAppealStatus(trans_id, appealDTO);
-//        return ResponseEntity.ok(this.modelMapper.map(updatedAppeal, AppealDTO.class));
-//    }
+    @PatchMapping("/v0/appeals/{trans_id}")
+    public ResponseEntity<AppealDTO> updateAppealStatus(@PathVariable Integer trans_id, @RequestBody AppealDTO appealDTO) {
+        AppealEntity updatedAppeal = appealService.updateAppealStatus(trans_id, appealDTO);
+        return ResponseEntity.ok(this.modelMapper.map(updatedAppeal, AppealDTO.class));
+    }
 
 }

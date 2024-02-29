@@ -2,7 +2,6 @@ package com.zolobooky.booky.appeals;
 
 import com.zolobooky.booky.appeals.dto.AppealDTO;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,7 +10,6 @@ import java.util.concurrent.atomic.AtomicReference;
 @Service
 public class AppealService {
 
-    @Autowired
     private final AppealRepository appealRepository;
 
     private final ModelMapper modelMapper;
@@ -29,9 +27,7 @@ public class AppealService {
         Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
         AtomicReference<AppealEntity> responseEntity = new AtomicReference<>(new AppealEntity());
 
-        appealEntity.ifPresentOrElse(responseEntity::set, () -> {
-            responseEntity.get().setTrans_id(-1);
-        });
+        appealEntity.ifPresentOrElse(responseEntity::set, () -> responseEntity.get().setTrans_id(-1));
 
         return responseEntity.get();
     }
@@ -43,11 +39,22 @@ public class AppealService {
         return appealRepository.save(appealEntity);
     }
 
-    public Optional<AppealEntity> updateAppealStatus(Integer trans_id, AppealDTO appealDTO) {
+    public AppealEntity updateAppealStatus(Integer trans_id, AppealDTO appealDTO) {
         AppealEntity appealDataEntity = modelMapper.map(appealDTO, AppealEntity.class);
+        Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
 
-//        savedEntity.ifPresent(appealEntity -> appealEntity.setTrans_status(CustomStatus.TransactionStatus.valueOf(appealDTO.getTrans_status())));
-        return appealRepository.findById(trans_id);
+        final AppealEntity[] updatedEntity = {new AppealEntity()};
+
+        appealEntity.ifPresentOrElse(entity -> {
+            if (entity.getTrans_id() != trans_id) {
+                updatedEntity[0].setTrans_id(-1);
+            } else {
+                updatedEntity[0] = appealDataEntity;
+                appealRepository.save(appealDataEntity);
+            }
+        }, () -> updatedEntity[0].setTrans_id(-1));
+
+        return updatedEntity[0];
     }
 
 }
