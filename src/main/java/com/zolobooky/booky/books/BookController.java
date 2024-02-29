@@ -38,7 +38,7 @@ public class BookController {
 			@RequestParam(value = "page", defaultValue = "0") String pageString,
 			@RequestParam(value = "size", defaultValue = "5") String sizeString) {
 		Integer page = Integer.parseInt(pageString);
-		Integer size = Integer.parseInt(sizeString)	;
+		Integer size = Integer.parseInt(sizeString);
 
 		Page<BookEntity> books = this.bookService.getBooks(page, size);
 

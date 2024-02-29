@@ -10,19 +10,24 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Entity(name="appeals")
+@Entity(name = "appeals")
 public class AppealEntity {
 
-    @Id
-    private int trans_id;
-    private int book_id;
-    private int borrower_id;
+	@Id
+	private int trans_id;
 
-    private CustomStatus.TransactionStatus trans_status;
+	private int book_id;
 
-    private Date initiation_date;
-    private Date expected_completion_dt;
-    private Date status_change_dt;
-    private Date completion_dt;
+	private int borrower_id;
+
+	private CustomStatus.TransactionStatus trans_status;
+
+	private Date initiation_date;
+
+	private Date expected_completion_dt;
+
+	private Date status_change_dt;
+
+	private Date completion_dt;
 
 }

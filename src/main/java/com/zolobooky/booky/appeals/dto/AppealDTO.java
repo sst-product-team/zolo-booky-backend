@@ -8,31 +8,38 @@ import java.util.Date;
 @Getter
 @Setter
 public class AppealDTO {
-    Integer trans_id;
-    Integer book_id;
-    Integer borrower_id;
 
-    String trans_status;
+	Integer trans_id;
 
-    Date initiation_date;
-    Date expected_completion_date;
-    Date status_change_date;
-    Date completion_date;
+	Integer book_id;
 
-    public AppealDTO() {
+	Integer borrower_id;
 
-    }
+	String trans_status;
 
-    public AppealDTO(Integer trans_id, Integer book_id, Integer borrower_id) {
-        setTrans_id(trans_id);
-        setBook_id(book_id);
-        setBorrower_id(borrower_id);
+	Date initiation_date;
 
-        setTrans_status("Pending");
+	Date expected_completion_date;
 
-        setInitiation_date(new Date());
-        setStatus_change_date(new Date());
-        setExpected_completion_date(new Date());
-        setCompletion_date(new Date());
-    }
+	Date status_change_date;
+
+	Date completion_date;
+
+	public AppealDTO() {
+
+	}
+
+	public AppealDTO(Integer trans_id, Integer book_id, Integer borrower_id) {
+		setTrans_id(trans_id);
+		setBook_id(book_id);
+		setBorrower_id(borrower_id);
+
+		setTrans_status("Pending");
+
+		setInitiation_date(new Date());
+		setStatus_change_date(new Date());
+		setExpected_completion_date(new Date());
+		setCompletion_date(new Date());
+	}
+
 }
