@@ -1,0 +1,41 @@
+version: 3
+
+dotenv: ['.env', '{{.ENV}}/.env.', '{{.HOME}}/.env']
+
+tasks:
+  format:
+    cmds:
+      - ./gradlew format
+      
+  package:
+    cmds:
+      - export $(cat .env | xargs)
+      - ./gradlew clean build
+      - cp ./build/libs/booky-0.0.1-SNAPSHOT.jar ./app.jar
+      - ./gradlew clean
+
+  package-ref:
+    cmds:
+      - export $(cat .env | xargs)
+      - ./gradlew clean build --refresh-dependencies
+      - cp ./build/libs/booky-0.0.1-SNAPSHOT.jar ./app.jar
+      - ./gradlew clean
+  
+  docker-image:
+    cmds:
+      - go-task package
+      - docker build -t sm2k4/zolobackend:v0 .
+
+  docker-image-push:
+    cmds:
+      - go-task package
+      - docker login
+      - docker build -t sm2k4/zolobackend:v0 .
+      - docker push sm2k4/zolobackend:latest
+
+  default:
+    - ./gradlew format
+    - export $(cat .env | xargs)
+    - ./gradlew clean build
+    - java -jar ./build/libs/booky-0.0.1-SNAPSHOT.jar
+  
