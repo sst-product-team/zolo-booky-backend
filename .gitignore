@@ -37,6 +37,4 @@ out/
 .vscode/
 
 ### Creds ###
-.token
-.creds
 .env
