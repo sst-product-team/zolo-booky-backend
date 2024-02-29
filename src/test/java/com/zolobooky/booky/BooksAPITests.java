@@ -1,35 +1,17 @@
 package com.zolobooky.booky;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zolobooky.booky.books.BookEntity;
-import com.zolobooky.booky.books.BookService;
 import com.zolobooky.booky.books.dto.CreateBookDTO;
-import com.zolobooky.booky.books.dto.ListBookDTO;
-import com.zolobooky.booky.commons.CustomStatus;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-
 import java.sql.Date;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -43,34 +25,40 @@ public class BooksAPITests {
 	private ObjectMapper objectMapper;
 
 	private void testSuccessPOSTRequest(String endpoint, String jsonModel) throws Exception {
-		mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
-		.content(jsonModel)
-		.accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk());
+		mockMvc
+			.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
+				.content(jsonModel)
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk());
 	}
+
 	private void testFailurePOSTRequest(String endpoint, String jsonModel, int ec) throws Exception {
 		if (ec == 400)
-			mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
-							.content(jsonModel)
-							.accept(MediaType.APPLICATION_JSON))
-					.andExpect(status().is4xxClientError());
+			mockMvc
+				.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
+					.content(jsonModel)
+					.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().is4xxClientError());
 		else if (ec == 500)
-			mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
-							.content(jsonModel)
-							.accept(MediaType.APPLICATION_JSON))
-					.andExpect(status().is5xxServerError());
+			mockMvc
+				.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
+					.content(jsonModel)
+					.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().is5xxServerError());
 		else
-			mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
-							.content(jsonModel)
-							.accept(MediaType.APPLICATION_JSON))
-					.andExpect(status().is(ec));
+			mockMvc
+				.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON)
+					.content(jsonModel)
+					.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().is(ec));
 	}
 
 	private void testSuccessGETRequest(String endpoint) throws Exception {
 		mockMvc.perform((get(endpoint))).andExpect(status().isOk());
 	}
+
 	private void testFailureGETRequest(String endpoint, int ec) throws Exception {
-		if(ec == 400)
+		if (ec == 400)
 			mockMvc.perform((get(endpoint))).andExpect(status().is4xxClientError());
 		else if (ec == 500)
 			mockMvc.perform((get(endpoint))).andExpect(status().is5xxServerError());
@@ -90,7 +78,7 @@ public class BooksAPITests {
 
 		// Fetch a book with ID book ID which does not exist in the DB
 		int bookID = 0;
-		testFailureGETRequest("/v0/books/"+bookID, 404);
+		testFailureGETRequest("/v0/books/" + bookID, 404);
 	}
 
 	@Test
@@ -115,10 +103,8 @@ public class BooksAPITests {
 		CreateBookDTO createBookDTO = new CreateBookDTO();
 		// Empty book data test
 		String jsonModel = objectMapper.writeValueAsString(createBookDTO);
-		mockMvc.perform(post("/v0/books")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(jsonModel)
-		).andDo(print());
+		mockMvc.perform(post("/v0/books").contentType(MediaType.APPLICATION_JSON).content(jsonModel))
+			.andExpect(status().is4xxClientError());
 	}
 
 }
