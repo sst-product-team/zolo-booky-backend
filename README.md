@@ -18,3 +18,9 @@ Make sure your server us running when you run these tests.
 ```
 ./gradlew test
 ```
+
+## Active API Service
+A development version of this API is hosted on Render and is available for use at the URL
+```
+https://api-zolo.onrender.com
+```
