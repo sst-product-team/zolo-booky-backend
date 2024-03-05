@@ -1,0 +1,9 @@
+version: 3
+
+dotenv: [".env", "{{.ENV}}/.env.", "{{.HOME}}/.env"]
+
+tasks:
+  build:
+    cmds:
+      - ./gradlew clean build
+      - echo $DB_URL
