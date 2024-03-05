@@ -2,6 +2,8 @@ package com.zolobooky.booky.appeals;
 
 import com.zolobooky.booky.commons.CustomStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,13 +16,14 @@ import java.util.Date;
 public class AppealEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int trans_id;
 
 	private int book_id;
 
 	private int borrower_id;
 
-	private CustomStatus.TransactionStatus trans_status;
+	private CustomStatus.TransactionStatus trans_status = CustomStatus.TransactionStatus.Pending;
 
 	private Date initiation_date;
 

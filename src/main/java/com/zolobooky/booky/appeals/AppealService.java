@@ -1,6 +1,7 @@
 package com.zolobooky.booky.appeals;
 
 import com.zolobooky.booky.appeals.dto.AppealDTO;
+import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +26,17 @@ public class AppealService {
 
 	public AppealEntity getAppeal(Integer trans_id) {
 		Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
-		AtomicReference<AppealEntity> responseEntity = new AtomicReference<>(new AppealEntity());
 
-		appealEntity.ifPresentOrElse(responseEntity::set, () -> responseEntity.get().setTrans_id(-1));
+		if (appealEntity.isEmpty()){
+			throw new BookNotFoundException("Appeal not found");
+		}
 
-		return responseEntity.get();
+		return appealEntity.get();
+
 	}
 
 	public AppealEntity createAppeal(AppealDTO appealDTO) {
 		AppealEntity appealEntity = modelMapper.map(appealDTO, AppealEntity.class);
-		appealEntity.setTrans_id((int) (appealRepository.count() + 1));
-
 		return appealRepository.save(appealEntity);
 	}
 
@@ -43,19 +44,11 @@ public class AppealService {
 		AppealEntity appealDataEntity = modelMapper.map(appealDTO, AppealEntity.class);
 		Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
 
-		final AppealEntity[] updatedEntity = { new AppealEntity() };
+		if (appealEntity.isEmpty()){
+			throw new BookNotFoundException("appeal not found");
+		}
 
-		appealEntity.ifPresentOrElse(entity -> {
-			if (entity.getTrans_id() != trans_id) {
-				updatedEntity[0].setTrans_id(-1);
-			}
-			else {
-				updatedEntity[0] = appealDataEntity;
-				appealRepository.save(appealDataEntity);
-			}
-		}, () -> updatedEntity[0].setTrans_id(-1));
-
-		return updatedEntity[0];
+		return appealRepository.save(appealEntity.get());
 	}
 
 }
