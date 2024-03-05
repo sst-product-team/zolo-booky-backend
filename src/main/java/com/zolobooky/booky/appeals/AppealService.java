@@ -27,7 +27,7 @@ public class AppealService {
 	public AppealEntity getAppeal(Integer trans_id) {
 		Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
 
-		if (appealEntity.isEmpty()){
+		if (appealEntity.isEmpty()) {
 			throw new BookNotFoundException("Appeal not found");
 		}
 
@@ -44,7 +44,7 @@ public class AppealService {
 		AppealEntity appealDataEntity = modelMapper.map(appealDTO, AppealEntity.class);
 		Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
 
-		if (appealEntity.isEmpty()){
+		if (appealEntity.isEmpty()) {
 			throw new BookNotFoundException("appeal not found");
 		}
 
