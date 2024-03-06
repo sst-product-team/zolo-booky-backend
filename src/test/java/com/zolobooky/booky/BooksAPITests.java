@@ -14,10 +14,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-//@AutoConfigureMockMvc
+@SpringBootTest
+@AutoConfigureMockMvc
 public class BooksAPITests {
 
+	//
 	// @Autowired
 	// private MockMvc mockMvc;
 	//
@@ -68,10 +69,6 @@ public class BooksAPITests {
 	// mockMvc.perform((get(endpoint))).andExpect(status().is(ec));
 	// }
 	//
-	// @Test
-	// void checkAwake() throws Exception {
-	// testSuccessGETRequest("");
-	// }
 	//
 	// @Test
 	// void fetchBooksTest() throws Exception {
