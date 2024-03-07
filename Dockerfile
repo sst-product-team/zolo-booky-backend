@@ -1,8 +1,12 @@
-FROM openjdk:17
+FROM gradle:8.5.0-jdk17-alpine
 
-WORKDIR /zolo-booky-backend
+COPY . .
+
+RUN gradle build
 
 COPY ./build/libs/booky-0.0.1-SNAPSHOT.jar ./booky.jar
+
+RUN gradle clean
 
 EXPOSE 8080
 
