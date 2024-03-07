@@ -34,9 +34,9 @@ jobs:
 
       - name: Run Gradle check
         env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_URL: jdbc:mysql://zolodb.mysql.database.azure.com:3306/booky?useSSL=false
+          DB_USER: zoloc
+          DB_PASS: heaven123HE!!
         run: ./gradlew check
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
