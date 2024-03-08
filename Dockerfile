@@ -1,8 +1,8 @@
-FROM gradle:8.5.0-jdk17-alpine
+FROM openjdk:17-slim
 
 COPY . .
 
-RUN gradle clean build
+RUN ./gradlew clean build
 
 COPY build/libs/booky-0.0.1-SNAPSHOT.jar ./booky.jar
 
