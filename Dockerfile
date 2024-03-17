@@ -1,11 +1,15 @@
-FROM gradle:8.5.0-jdk17-alpine
+FROM openjdk:17-jdk-slim AS build
 
 COPY . .
 
-RUN gradle clean build
+RUN ./gradlew bootJar --no-daemon
 
-COPY ./build/libs/booky-0.0.1-SNAPSHOT.jar ./booky.jar
+FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "./booky.jar"]
+COPY --from=build /build/libs/booky-0.0.1-SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java","-jar","app.jar"]
+
+CMD ["java","-jar","app.jar"]
