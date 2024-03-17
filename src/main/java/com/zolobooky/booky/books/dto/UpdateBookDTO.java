@@ -11,6 +11,8 @@ public class UpdateBookDTO {
 
 	String name;
 
+	String author;
+
 	String description;
 
 	Date availability;

@@ -15,6 +15,8 @@ public class BookDTO {
 
 	String name;
 
+	String author;
+
 	String description;
 
 	BookStatus status;

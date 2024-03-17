@@ -11,9 +11,13 @@ public class CreateBookDTO {
 
 	String name;
 
+	String author;
+
 	String description;
 
 	Date availability;
+
+	String thumbnail;
 
 	Integer owner;
 
