@@ -13,6 +13,8 @@ public class ListBookDTO {
 
 	String name;
 
+	String author;
+
 	BookStatus status;
 
 	String thumbnail;
