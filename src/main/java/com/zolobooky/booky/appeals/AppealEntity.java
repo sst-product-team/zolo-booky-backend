@@ -1,14 +1,19 @@
 package com.zolobooky.booky.appeals;
 
+import java.util.Date;
+
+import com.zolobooky.booky.books.BookEntity;
 import com.zolobooky.booky.commons.CustomStatus;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Getter
 @Setter
@@ -17,20 +22,18 @@ public class AppealEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int trans_id;
+	private int id;
 
-	private int book_id;
+	@Column(name = "book_id", nullable = false)
+	private int bookid;
 
-	private int borrower_id;
+	@OneToOne
+	@JoinColumn(name = "book_id", insertable = false, updatable = false)
+	private BookEntity book;
 
-	private CustomStatus.TransactionStatus trans_status = CustomStatus.TransactionStatus.Pending;
+	@Column(nullable = false)
+	Date returndate;
 
-	private Date initiation_date;
-
-	private Date expected_completion_dt;
-
-	private Date status_change_dt;
-
-	private Date completion_dt;
+	CustomStatus.TransactionStatus status = CustomStatus.TransactionStatus.PENDING;
 
 }
