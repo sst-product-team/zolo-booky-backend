@@ -15,6 +15,8 @@ public class ShortAppealDTO {
 
 	Integer bookid;
 
+	String borrower;
+
 	Date returnDate;
 
 	CustomStatus.TransactionStatus status;

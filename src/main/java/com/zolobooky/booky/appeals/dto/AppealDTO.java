@@ -18,6 +18,8 @@ public class AppealDTO {
 
 	BookDTO book;
 
+	String borrower;
+
 	Date returndate;
 
 	CustomStatus.TransactionStatus status;

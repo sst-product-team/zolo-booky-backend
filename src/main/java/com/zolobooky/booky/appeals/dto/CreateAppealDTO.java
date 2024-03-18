@@ -11,6 +11,8 @@ public class CreateAppealDTO {
 
 	Integer bookid;
 
+	String borrower;
+
 	Date returndate;
 
 }
