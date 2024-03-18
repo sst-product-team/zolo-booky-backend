@@ -5,5 +5,5 @@ dotenv: [".env", "{{.ENV}}/.env.", "{{.HOME}}/.env"]
 tasks:
   build:
     cmds:
+      - ./gradlew format
       - ./gradlew clean build
-      - echo $DB_URL

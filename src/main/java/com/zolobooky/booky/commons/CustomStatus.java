@@ -8,4 +8,10 @@ public class CustomStatus {
 
 	}
 
+	public enum TransactionStatus {
+
+		Pending, Rejected, Ongoing, Completed
+
+	}
+
 }

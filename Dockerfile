@@ -1,9 +1,15 @@
-FROM openjdk:17
+FROM openjdk:17-jdk-slim AS build
 
-WORKDIR /zolo-booky-backend
+COPY . .
 
-COPY ./build/libs/booky-0.0.1-SNAPSHOT.jar ./booky.jar
+RUN ./gradlew bootJar --no-daemon
+
+FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "./booky.jar"]
+COPY --from=build /build/libs/booky-0.0.1-SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java","-jar","app.jar"]
+
+CMD ["java","-jar","app.jar"]
