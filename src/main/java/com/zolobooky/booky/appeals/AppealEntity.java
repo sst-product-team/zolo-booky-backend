@@ -27,6 +27,8 @@ public class AppealEntity {
 	@Column(name = "book_id", nullable = false)
 	private int bookid;
 
+	private String borrower;
+
 	@OneToOne
 	@JoinColumn(name = "book_id", insertable = false, updatable = false)
 	private BookEntity book;

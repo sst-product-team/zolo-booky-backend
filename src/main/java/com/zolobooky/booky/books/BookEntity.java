@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 import java.sql.Date;
 import lombok.Getter;
@@ -17,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "books")
-@Table(name = "books", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "description", "thumbnail" }))
+@Table(name = "books")
 public class BookEntity {
 
 	@Id
