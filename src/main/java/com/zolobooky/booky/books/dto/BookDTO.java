@@ -27,6 +27,6 @@ public class BookDTO {
 
 	String thumbnail;
 
-	Integer owner;
+	String owner;
 
 }
