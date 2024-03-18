@@ -19,6 +19,6 @@ public class ListBookDTO {
 
 	String thumbnail;
 
-	Integer owner;
+	String owner;
 
 }

@@ -43,6 +43,6 @@ public class BookEntity {
 	String thumbnail;
 
 	@Column(nullable = false)
-	Integer owner;
+	String owner;
 
 }
