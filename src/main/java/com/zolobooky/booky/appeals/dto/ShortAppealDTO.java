@@ -1,26 +1,23 @@
 package com.zolobooky.booky.appeals.dto;
 
+import java.sql.Date;
+
+import com.zolobooky.booky.commons.CustomStatus;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
-import com.zolobooky.booky.books.dto.BookDTO;
-import com.zolobooky.booky.commons.CustomStatus;
-
 @Getter
 @Setter
-public class AppealDTO {
+public class ShortAppealDTO {
 
 	Integer id;
 
 	Integer bookid;
 
-	BookDTO book;
-
 	String borrower;
 
-	Date returndate;
+	Date returnDate;
 
 	CustomStatus.TransactionStatus status;
 

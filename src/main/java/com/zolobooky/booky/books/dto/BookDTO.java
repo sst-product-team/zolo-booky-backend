@@ -15,6 +15,8 @@ public class BookDTO {
 
 	String name;
 
+	String author;
+
 	String description;
 
 	BookStatus status;
@@ -25,6 +27,6 @@ public class BookDTO {
 
 	String thumbnail;
 
-	Integer owner;
+	String owner;
 
 }

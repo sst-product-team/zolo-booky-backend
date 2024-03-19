@@ -13,11 +13,15 @@ public class CreateBookDTO {
 	@NonNull
 	String name;
 
+	String author;
+
 	String description;
 
 	@NonNull
 	Date availability;
 
-	Integer owner;
+	String thumbnail;
+
+	String owner;
 
 }
