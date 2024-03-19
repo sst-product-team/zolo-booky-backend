@@ -36,6 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-### Creds ###
-.token
-.creds
+### Resources Direcotry ###
+application.properties

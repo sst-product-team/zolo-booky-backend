@@ -1,16 +1,17 @@
 package com.zolobooky.booky.appeals;
 
-import com.zolobooky.booky.appeals.appealsExceptions.AppealsNotFoundExceptions;
+import com.zolobooky.booky.appeals.AppealExceptions.AppealAlreadyExistsException;
+import com.zolobooky.booky.appeals.AppealExceptions.AppealNotFoundException;
 import com.zolobooky.booky.appeals.dto.CreateAppealDTO;
-import com.zolobooky.booky.appeals.dto.StatusAppealDTO;
+import com.zolobooky.booky.appeals.dto.UpdateAppealDTO;
 import com.zolobooky.booky.books.BookEntity;
-import com.zolobooky.booky.books.BookRepository;
 import com.zolobooky.booky.books.BookExceptions.BadRequestException;
+import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
+import com.zolobooky.booky.books.BookService;
 import com.zolobooky.booky.commons.CustomStatus;
-
-import org.modelmapper.ModelMapper;
+import com.zolobooky.booky.users.UserEntity;
+import com.zolobooky.booky.users.UserService;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -18,25 +19,25 @@ public class AppealService {
 
 	private final AppealRepository appealRepository;
 
-	private final BookRepository bookRepository;
+	private final BookService bookService;
 
-	private final ModelMapper modelMapper;
+	private final UserService userService;
 
-	public AppealService(AppealRepository appealRepository, ModelMapper modelMapper, BookRepository bookRepository) {
+	public AppealService(AppealRepository appealRepository, BookService bookService, UserService userService) {
 		this.appealRepository = appealRepository;
-		this.modelMapper = modelMapper;
-		this.bookRepository = bookRepository;
+		this.bookService = bookService;
+		this.userService = userService;
 	}
 
 	public List<AppealEntity> getAllAppeals() {
 		return appealRepository.findAll();
 	}
 
-	public AppealEntity getAppealById(Integer id) {
-		Optional<AppealEntity> appealEntity = appealRepository.findById(id);
+	public AppealEntity getAppeal(Integer trans_id) {
+		Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
 
 		if (appealEntity.isEmpty()) {
-			throw new AppealsNotFoundExceptions("no transaction found with id: " + id);
+			throw new AppealNotFoundException("Appeal with id " + trans_id + " does not exist");
 		}
 
 		return appealEntity.get();
@@ -45,40 +46,53 @@ public class AppealService {
 
 	public AppealEntity createAppeal(CreateAppealDTO createAppealDTO) {
 
-		if (createAppealDTO.getReturndate() == null || createAppealDTO.getBookid() == null) {
-			throw new BadRequestException("Missing field:Requires {bookid: Integer, returndate: Date}");
+		if (createAppealDTO.getBook_id() == null || createAppealDTO.getBorrower_id() == null
+				|| createAppealDTO.getExpected_completion_date() == null) {
+			throw new BadRequestException("BAD REQUEST: Missing required body");
 		}
-		AppealEntity appealEntity = modelMapper.map(createAppealDTO, AppealEntity.class);
-		return this.appealRepository.save(appealEntity);
+
+		BookEntity book = bookService.getBookById(createAppealDTO.getBook_id());
+		UserEntity user = userService.getUser(createAppealDTO.getBorrower_id());
+
+		List<AppealEntity> appeals = this.appealRepository.findAll();
+		for (var appeal : appeals) {
+			CustomStatus.TransactionStatus ongoing = CustomStatus.TransactionStatus.ONGOING;
+			if (Objects.equals(appeal.getBook_id().getId(), book.getId()) && appeal.getTrans_status() == ongoing) {
+				throw new AppealAlreadyExistsException("Ongoing appeal for this book already exists");
+			}
+		}
+
+		Date intiDate = new Date();
+		AppealEntity appealEntity = new AppealEntity();
+		appealEntity.setBook_id(book);
+		appealEntity.setBorrower_id(user);
+		appealEntity.setInitiation_date(intiDate);
+		appealEntity.setExpected_completion_date(createAppealDTO.getExpected_completion_date());
+		return appealRepository.save(appealEntity);
 	}
 
-	public AppealEntity updateAppealStatusById(Integer id, StatusAppealDTO statusAppealDTO) {
-
-		Optional<AppealEntity> entity = this.appealRepository.findById(id);
-
-		if (entity.isEmpty()) {
-			throw new AppealsNotFoundExceptions("no transaction found with id: " + id);
+	public AppealEntity updateAppealStatus(Integer trans_id, UpdateAppealDTO appealDTO) {
+		Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
+		if (appealEntity.isEmpty()) {
+			throw new BookNotFoundException("appeal not found");
 		}
 
-		AppealEntity appealEntity = entity.get();
-
-		if (statusAppealDTO.getStatus().equals(CustomStatus.TransactionStatus.ONGOING)) {
-			Integer bookid = appealEntity.getBookid();
-			BookEntity bookEntity = this.bookRepository.findById(bookid).get();
-			bookEntity.setStatus(CustomStatus.BookStatus.UNAVAILABLE);
-			this.bookRepository.save(bookEntity);
+		if (appealDTO.getTrans_status() == null) {
+			throw new BadRequestException("Missing required body {status}");
 		}
-
-		if (statusAppealDTO.getStatus().equals(CustomStatus.TransactionStatus.COMPLETED)) {
-			Integer bookid = appealEntity.getBookid();
-			BookEntity bookEntity = this.bookRepository.findById(bookid).get();
-			bookEntity.setStatus(CustomStatus.BookStatus.AVAILABLE);
-			this.bookRepository.save(bookEntity);
+		Date then = new Date();
+		AppealEntity appeal = appealEntity.get();
+		BookEntity book = appeal.getBook_id();
+		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.ONGOING) {
+			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.UNAVAILABLE);
 		}
-
-		appealEntity.setStatus(statusAppealDTO.getStatus());
-
-		return this.appealRepository.save(appealEntity);
+		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.COMPLETED
+				|| appealDTO.getTrans_status() == CustomStatus.TransactionStatus.REJECTED) {
+			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.AVAILABLE);
+		}
+		appeal.setTrans_status(appealDTO.getTrans_status());
+		appeal.setStatus_change_date(then);
+		return appealRepository.save(appeal);
 	}
 
 }

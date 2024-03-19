@@ -1,27 +1,28 @@
 package com.zolobooky.booky.appeals.dto;
 
+import com.zolobooky.booky.books.BookEntity;
+import com.zolobooky.booky.users.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
-
-import com.zolobooky.booky.books.dto.BookDTO;
-import com.zolobooky.booky.commons.CustomStatus;
 
 @Getter
 @Setter
 public class AppealDTO {
 
-	Integer id;
+	Integer trans_id;
 
-	Integer bookid;
+	BookEntity book_id;
 
-	BookDTO book;
+	UserEntity borrower_id;
 
-	String borrower;
+	String trans_status;
 
-	Date returndate;
+	String initiation_date;
 
-	CustomStatus.TransactionStatus status;
+	String expected_completion_date;
+
+	String status_change_date;
+
+	String completion_date;
 
 }

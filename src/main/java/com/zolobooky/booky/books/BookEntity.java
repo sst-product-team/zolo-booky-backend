@@ -2,12 +2,8 @@ package com.zolobooky.booky.books;
 
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.zolobooky.booky.users.UserEntity;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 import lombok.Getter;
@@ -16,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "books")
-@Table(name = "books")
+@Table(name = "books", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "description", "thumbnail" }))
 public class BookEntity {
 
 	@Id
@@ -34,14 +30,16 @@ public class BookEntity {
 	@Column(nullable = false)
 	BookStatus status = BookStatus.AVAILABLE;
 
-	@Column(nullable = false)
+	@Column
 	Date availability;
 
 	private Double rating;
 
 	String thumbnail;
 
-	@Column(nullable = false)
-	String owner;
+	@PrimaryKeyJoinColumn
+	@OneToOne
+	@JoinColumn(name = "owner", nullable = false)
+	UserEntity owner;
 
 }
