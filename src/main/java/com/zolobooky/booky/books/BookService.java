@@ -5,6 +5,7 @@ import com.zolobooky.booky.books.BookExceptions.BookAlreadyExistsException;
 import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
 import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
+import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
 import lombok.extern.slf4j.Slf4j;
@@ -134,6 +135,15 @@ public class BookService {
 		log.info(String.format("book with book id: %d updated successfully", id));
 
 		return this.bookRepository.save(bookToUpdate);
+	}
+
+	public BookEntity updateStatus(Integer book_id, CustomStatus.BookStatus newStatus) {
+		BookEntity book = getBookById(book_id);
+		if (book == null) {
+			throw new BookNotFoundException("Book with ID" + book_id + " does not exist");
+		}
+		book.setStatus(newStatus);
+		return this.bookRepository.save(book);
 	}
 
 }

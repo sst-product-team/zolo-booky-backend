@@ -2,6 +2,7 @@ package com.zolobooky.booky.books.dto;
 
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
+import com.zolobooky.booky.users.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,6 @@ public class ListBookDTO {
 
 	String thumbnail;
 
-	Integer owner;
+	UserEntity owner;
 
 }

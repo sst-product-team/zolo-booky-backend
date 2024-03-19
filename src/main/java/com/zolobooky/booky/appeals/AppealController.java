@@ -2,11 +2,14 @@ package com.zolobooky.booky.appeals;
 
 import com.zolobooky.booky.appeals.dto.AppealDTO;
 
+import com.zolobooky.booky.appeals.dto.CreateAppealDTO;
+import com.zolobooky.booky.appeals.dto.UpdateAppealDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +43,14 @@ public class AppealController {
 	}
 
 	@PostMapping("/v0/appeals")
-	public ResponseEntity<AppealDTO> createAppeal(@RequestBody AppealDTO appealDTO) {
-		AppealEntity appealRegistered = appealService.createAppeal(appealDTO);
+	public ResponseEntity<AppealDTO> createAppeal(@RequestBody CreateAppealDTO createAppealDTO) {
+		AppealEntity appealRegistered = appealService.createAppeal(createAppealDTO);
 		return ResponseEntity.ok(this.modelMapper.map(appealRegistered, AppealDTO.class));
 	}
 
 	@PatchMapping("/v0/appeals/{trans_id}")
 	public ResponseEntity<AppealDTO> updateAppealStatus(@PathVariable Integer trans_id,
-			@RequestBody AppealDTO appealDTO) {
+			@RequestBody UpdateAppealDTO appealDTO) {
 		AppealEntity updatedAppeal = appealService.updateAppealStatus(trans_id, appealDTO);
 		return ResponseEntity.ok(this.modelMapper.map(updatedAppeal, AppealDTO.class));
 	}

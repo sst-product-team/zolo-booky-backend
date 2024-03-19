@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
+import com.zolobooky.booky.users.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,6 @@ public class BookDTO {
 
 	String thumbnail;
 
-	Integer owner;
+	UserEntity owner;
 
 }

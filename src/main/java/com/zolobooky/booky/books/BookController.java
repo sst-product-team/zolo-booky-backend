@@ -4,9 +4,8 @@ import com.zolobooky.booky.books.dto.BookDTO;
 import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.ListBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
-
 import java.util.List;
-
+import com.zolobooky.booky.notifications.NotificationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -77,6 +76,15 @@ public class BookController {
 		var response = this.modelMapper.map(updatedBook, BookDTO.class);
 
 		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/test")
+	public String test() throws InterruptedException {
+		System.out.println("Line 1");
+		NotificationService notificationService = new NotificationService();
+		notificationService.bookCreatedNotification();
+		System.out.println("Line 2");
+		return "completed";
 	}
 
 }
