@@ -33,7 +33,7 @@ public class UserService {
 		UserEntity user = this.userRepository.findByFcmToken(fcmToken);
 		if (user == null) {
 			UserEntity userById = getUser(userId);
-			if(userById != null) {
+			if (userById != null) {
 				userById.setFcmToken(fcmToken);
 				return this.userRepository.save(userById);
 			}
