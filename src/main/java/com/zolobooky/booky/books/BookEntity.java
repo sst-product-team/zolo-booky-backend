@@ -22,6 +22,9 @@ public class BookEntity {
 	@Column(nullable = false)
 	private String name;
 
+	@Column(nullable = false)
+	private String author;
+
 	String description;
 
 	@Column(nullable = false)

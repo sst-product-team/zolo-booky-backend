@@ -25,7 +25,7 @@ public class AppealEntity {
 	@JoinColumn(name = "borrower_id", nullable = false)
 	private UserEntity borrower_id;
 
-	private CustomStatus.TransactionStatus trans_status = CustomStatus.TransactionStatus.Pending;
+	private CustomStatus.TransactionStatus trans_status = CustomStatus.TransactionStatus.PENDING;
 
 	private Date initiation_date;
 

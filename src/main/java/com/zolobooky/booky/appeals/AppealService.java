@@ -56,7 +56,7 @@ public class AppealService {
 
 		List<AppealEntity> appeals = this.appealRepository.findAll();
 		for (var appeal : appeals) {
-			CustomStatus.TransactionStatus ongoing = CustomStatus.TransactionStatus.Ongoing;
+			CustomStatus.TransactionStatus ongoing = CustomStatus.TransactionStatus.ONGOING;
 			if (Objects.equals(appeal.getBook_id().getId(), book.getId()) && appeal.getTrans_status() == ongoing) {
 				throw new AppealAlreadyExistsException("Ongoing appeal for this book already exists");
 			}
@@ -83,11 +83,11 @@ public class AppealService {
 		Date then = new Date();
 		AppealEntity appeal = appealEntity.get();
 		BookEntity book = appeal.getBook_id();
-		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.Ongoing) {
+		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.ONGOING) {
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.UNAVAILABLE);
 		}
-		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.Completed
-				|| appealDTO.getTrans_status() == CustomStatus.TransactionStatus.Rejected) {
+		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.COMPLETED
+				|| appealDTO.getTrans_status() == CustomStatus.TransactionStatus.REJECTED) {
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.AVAILABLE);
 		}
 		appeal.setTrans_status(appealDTO.getTrans_status());
