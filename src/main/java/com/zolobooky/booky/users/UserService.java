@@ -3,7 +3,6 @@ package com.zolobooky.booky.users;
 import com.zolobooky.booky.books.BookExceptions.BadRequestException;
 import com.zolobooky.booky.users.dto.CreateUserDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +26,17 @@ public class UserService {
 		return this.userRepository.getReferenceById(id);
 	}
 
-	public UserEntity getUser(String fcmToken) {
+	public UserEntity getUser(Integer userId, String fcmToken) {
 		if (fcmToken == null) {
 			throw new BadRequestException("Found unexpected null value(s): FCM Token");
 		}
 		UserEntity user = this.userRepository.findByFcmToken(fcmToken);
 		if (user == null) {
+			UserEntity userById = getUser(userId);
+			if(userById != null) {
+				userById.setFcmToken(fcmToken);
+				return this.userRepository.save(userById);
+			}
 			CreateUserDTO createUserDTO = new CreateUserDTO();
 			createUserDTO.setFcmToken(fcmToken);
 			user = createUser(createUserDTO);
