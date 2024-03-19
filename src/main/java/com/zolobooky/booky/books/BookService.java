@@ -58,10 +58,15 @@ public class BookService {
 
 		if (newBookToSave.getName() == null || newBookToSave.getAvailability() == null
 				|| newBookToSave.getOwner() == null) {
-			StringBuilder whichNull = new StringBuilder("");
+			StringBuilder whichNull = new StringBuilder();
 			if (newBookToSave.getName() == null) {
 				whichNull.append("name : <book_name>, ");
 			}
+
+			if (newBookToSave.getAuthor() == null) {
+				whichNull.append("author : <author_name>, ");
+			}
+
 			if (newBookToSave.getAvailability() == null) {
 				whichNull.append("availability : <book_availability>, ");
 			}
@@ -69,8 +74,8 @@ public class BookService {
 				whichNull.append("owner : <book_owner>");
 			}
 
-			log.info(String.format("Found unexpected null value(s) : %s", whichNull.toString()));
-			throw new BadRequestException(String.format("Found unexpected null value(s) : %s", whichNull.toString()));
+			log.info(String.format("Found unexpected null value(s) : %s", whichNull));
+			throw new BadRequestException(String.format("Found unexpected null value(s) : %s", whichNull));
 		}
 
 		for (var book : books) {
@@ -118,6 +123,10 @@ public class BookService {
 
 		if (updateBookDTO.getName() != null) {
 			bookToUpdate.setName(updateBookDTO.getName());
+		}
+
+		if (updateBookDTO.getAuthor() != null) {
+			bookToUpdate.setAuthor(updateBookDTO.getAuthor());
 		}
 
 		if (updateBookDTO.getDescription() != null) {
