@@ -1,10 +1,10 @@
 package com.zolobooky.booky.books;
 
+import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
 import com.zolobooky.booky.users.UserEntity;
 import jakarta.persistence.*;
-
 import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,5 +41,17 @@ public class BookEntity {
 	@ManyToOne
 	@JoinColumn(name = "owner", nullable = false)
 	UserEntity owner;
+
+	public BookEntity() {
+	}
+
+	public BookEntity(CreateBookDTO createBookDTO) {
+		this.name = createBookDTO.getName();
+		this.author = createBookDTO.getAuthor();
+		this.description = createBookDTO.getDescription();
+		this.availability = createBookDTO.getAvailability();
+		this.thumbnail = createBookDTO.getThumbnail();
+		this.owner = null;
+	}
 
 }

@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @Slf4j
 public class UserService {
@@ -27,21 +29,24 @@ public class UserService {
 	}
 
 	public UserEntity getUser(Integer userId, String fcmToken) {
-		if (fcmToken == null) {
-			throw new BadRequestException("Found unexpected null value(s): FCM Token");
-		}
-		UserEntity user = this.userRepository.findByFcmToken(fcmToken);
-		if (user == null) {
-			UserEntity userById = getUser(userId);
-			if (userById != null) {
-				userById.setFcmToken(fcmToken);
-				return this.userRepository.save(userById);
+
+		if (userId == -1) {
+			UserEntity possibleUser = this.userRepository.findByFcmToken(fcmToken);
+			if (possibleUser == null) {
+				CreateUserDTO createUserDTO = new CreateUserDTO();
+				createUserDTO.setFcmToken(fcmToken);
+                return createUser(createUserDTO);
 			}
-			CreateUserDTO createUserDTO = new CreateUserDTO();
-			createUserDTO.setFcmToken(fcmToken);
-			user = createUser(createUserDTO);
+			else {
+				return possibleUser;
+			}
 		}
-		return user;
+
+		UserEntity user = this.getUser(userId);
+		if (Objects.equals(user.getFcmToken(), fcmToken))
+			return user;
+		user.setFcmToken(fcmToken);
+		return this.userRepository.save(user);
 	}
 
 	public UserEntity createUser(CreateUserDTO createUserDTO) {
