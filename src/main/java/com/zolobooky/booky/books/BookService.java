@@ -8,12 +8,12 @@ import com.zolobooky.booky.books.dto.UpdateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
+import com.zolobooky.booky.users.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,11 +24,11 @@ public class BookService {
 
 	private final BookRepository bookRepository;
 
-	private final ModelMapper modelMapper;
+	private final UserService userService;
 
-	public BookService(BookRepository bookRepository, ModelMapper modelMapper) {
+	public BookService(BookRepository bookRepository, UserService userService) {
 		this.bookRepository = bookRepository;
-		this.modelMapper = modelMapper;
+		this.userService = userService;
 	}
 
 	public Page<BookEntity> getBooks(Integer page, Integer size) {
@@ -54,7 +54,8 @@ public class BookService {
 	public BookEntity createBook(CreateBookDTO createBookDTO) {
 
 		List<BookEntity> books = this.bookRepository.findByStatusOrderByName(BookStatus.AVAILABLE);
-		BookEntity newBookToSave = this.modelMapper.map(createBookDTO, BookEntity.class);
+		BookEntity newBookToSave = new BookEntity(createBookDTO);
+		newBookToSave.setOwner(userService.getUser(createBookDTO.getOwner()));
 
 		if (newBookToSave.getName() == null || newBookToSave.getAvailability() == null
 				|| newBookToSave.getOwner() == null) {

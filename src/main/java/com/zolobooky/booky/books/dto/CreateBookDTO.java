@@ -22,6 +22,7 @@ public class CreateBookDTO {
 
 	String thumbnail;
 
-	String owner;
+	@NonNull
+	Integer owner;
 
 }
