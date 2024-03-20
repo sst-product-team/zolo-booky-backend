@@ -17,7 +17,7 @@ public class AppealEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int trans_id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "book_id", nullable = false)
 	private BookEntity book_id;
 

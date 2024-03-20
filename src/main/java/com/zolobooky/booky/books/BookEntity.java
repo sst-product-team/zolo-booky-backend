@@ -38,7 +38,7 @@ public class BookEntity {
 	String thumbnail;
 
 	@PrimaryKeyJoinColumn
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "owner", nullable = false)
 	UserEntity owner;
 
