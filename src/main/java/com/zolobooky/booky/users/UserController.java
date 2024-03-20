@@ -30,12 +30,12 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/token/{fcmToken}")
-	public ResponseEntity<ListUserDTO> getUserByFcm(@PathVariable String fcmToken) {
+	@GetMapping("/token/{userId}/{fcmToken}")
+	public ResponseEntity<ListUserDTO> getUserByFcm(@PathVariable Integer userId, @PathVariable String fcmToken) {
 		if (fcmToken == null) {
 			throw new BadRequestException("Incomplete request");
 		}
-		UserEntity user = this.userService.getUser(fcmToken);
+		UserEntity user = this.userService.getUser(userId, fcmToken);
 		var response = this.modelMapper.map(user, ListUserDTO.class);
 		return ResponseEntity.ok(response);
 	}
