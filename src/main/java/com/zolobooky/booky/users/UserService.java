@@ -35,7 +35,7 @@ public class UserService {
 			if (possibleUser == null) {
 				CreateUserDTO createUserDTO = new CreateUserDTO();
 				createUserDTO.setFcmToken(fcmToken);
-                return createUser(createUserDTO);
+				return createUser(createUserDTO);
 			}
 			else {
 				return possibleUser;
