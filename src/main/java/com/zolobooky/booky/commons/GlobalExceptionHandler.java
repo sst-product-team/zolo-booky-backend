@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.zolobooky.booky.appeals.appealsExceptions.AppealsNotFoundExceptions;
 import com.zolobooky.booky.books.BookExceptions.BadRequestException;
 import com.zolobooky.booky.books.BookExceptions.BookAlreadyExistsException;
 import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
@@ -40,16 +39,6 @@ public class GlobalExceptionHandler {
 		resp.setStatusCode("" + HttpStatus.BAD_REQUEST);
 
 		return new ResponseEntity<ExceptionResponse>(resp, HttpStatus.BAD_REQUEST);
-	}
-
-	@ExceptionHandler(AppealsNotFoundExceptions.class)
-	public ResponseEntity<ExceptionResponse> appealsNotFound(AppealsNotFoundExceptions appealsNotFoundExceptions) {
-		ExceptionResponse resp = new ExceptionResponse();
-
-		resp.setMessage(appealsNotFoundExceptions.getMessage());
-		resp.setStatusCode("" + HttpStatus.NOT_FOUND);
-
-		return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
 	}
 
 }

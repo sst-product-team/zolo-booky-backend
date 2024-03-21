@@ -12,3 +12,11 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   banner:
     location: classpath:static/banner.txt
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  fire:
+    config: classpath:static/fire-config.json

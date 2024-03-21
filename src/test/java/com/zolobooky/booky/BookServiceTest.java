@@ -1,6 +1,5 @@
 package com.zolobooky.booky;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zolobooky.booky.books.BookController;
 import com.zolobooky.booky.books.BookService;
 import static org.mockito.Mockito.when;
@@ -21,16 +20,13 @@ public class BookServiceTest {
 	@MockBean
 	private BookService bookService;
 
-	@Autowired
-	private ObjectMapper objectMapper;
-
 	private final BookAPITestAssets bookAPITestAssets = new BookAPITestAssets();
 
 	@Test
-	 void fetchBooksServiceTest() throws Exception {
-		 when(bookService.getBooks(0,5)).thenReturn(bookAPITestAssets.getBooks());
-		 this.mockMvc.perform(get("/v0/books")).andExpect(status().isOk());
-	 }
+	void fetchBooksServiceTest() throws Exception {
+		when(bookService.getBooks(0, 5)).thenReturn(bookAPITestAssets.getBooks());
+		this.mockMvc.perform(get("/v0/books")).andExpect(status().isOk());
+	}
 
 	@Test
 	void fetchBookByIDServiceTest() throws Exception {
@@ -40,9 +36,9 @@ public class BookServiceTest {
 
 	//
 	@Test
-	 void delistBookSerivceTest() throws Exception {
+	void delistBookSerivceTest() throws Exception {
 		when(bookService.deleteBook(0)).thenReturn(bookAPITestAssets.getDelistedBook());
 		this.mockMvc.perform(delete("/v0/books/0")).andExpect(status().isOk());
-	 }
+	}
 
 }
