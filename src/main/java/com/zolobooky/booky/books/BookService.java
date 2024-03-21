@@ -1,5 +1,7 @@
 package com.zolobooky.booky.books;
 
+import com.zolobooky.booky.appeals.AppealEntity;
+import com.zolobooky.booky.appeals.AppealRepository;
 import com.zolobooky.booky.books.BookExceptions.BadRequestException;
 import com.zolobooky.booky.books.BookExceptions.BookAlreadyExistsException;
 import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
@@ -7,7 +9,9 @@ import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
-
+import com.zolobooky.booky.notifications.FireService;
+import com.zolobooky.booky.users.UserEntity;
+import com.zolobooky.booky.users.UserRepository;
 import com.zolobooky.booky.users.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,9 +30,19 @@ public class BookService {
 
 	private final UserService userService;
 
-	public BookService(BookRepository bookRepository, UserService userService) {
+	private final FireService fireService;
+
+	private final UserRepository userRepository;
+
+	private final AppealRepository appealRepository;
+
+	public BookService(BookRepository bookRepository, UserService userService, FireService fireService,
+			AppealRepository appealRepository, UserRepository userRepository) {
 		this.bookRepository = bookRepository;
 		this.userService = userService;
+		this.fireService = fireService;
+		this.userRepository = userRepository;
+		this.appealRepository = appealRepository;
 	}
 
 	public Page<BookEntity> getBooks(Integer page, Integer size) {
@@ -91,6 +105,18 @@ public class BookService {
 		}
 
 		log.info(String.format("Book with book name: %s Created.", newBookToSave.getName()));
+
+		List<UserEntity> users = this.userRepository.findAll();
+
+		for (UserEntity user : users) {
+			if (user.getName() != newBookToSave.getOwner().getName()) {
+				this.fireService.sendNotification(user.getFcmToken(), "New Book Alert!!",
+						String.format("New Book %s has been added by %s ", newBookToSave.getName(),
+								newBookToSave.getOwner().getName()));
+			}
+
+		}
+
 		return this.bookRepository.save(newBookToSave);
 	}
 
@@ -106,6 +132,15 @@ public class BookService {
 			}
 			book.setStatus(BookStatus.DELISTED);
 			log.info(String.format("book with id: %d Delisted", id));
+
+			List<AppealEntity> appealsOfBook = this.appealRepository.findAll();
+
+			for (AppealEntity appeal : appealsOfBook) {
+				if (appeal.getBook_id().equals(book)) {
+					this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+							String.format("Book %s delisted.", book.getName()), "Owner has delisted the book.");
+				}
+			}
 		}
 
 		return this.bookRepository.save(book);
