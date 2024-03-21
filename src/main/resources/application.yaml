@@ -19,4 +19,4 @@ spring:
 
 app:
   fire:
-    config: classpath:static/fire-config.json
+    config: /etc/secrets/fire-config.json
