@@ -21,7 +21,7 @@ public class AppealEntity {
 	@JoinColumn(name = "book_id", nullable = false)
 	private BookEntity book_id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "borrower_id", nullable = false)
 	private UserEntity borrower_id;
 
