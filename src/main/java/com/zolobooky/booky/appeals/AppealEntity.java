@@ -6,6 +6,8 @@ import com.zolobooky.booky.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
@@ -17,13 +19,13 @@ public class AppealEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int trans_id;
 
-	@ManyToOne
+	@ManyToMany
 	@JoinColumn(name = "book_id", nullable = false)
-	private BookEntity book_id;
+	private Collection<BookEntity> book_id;
 
-	@ManyToOne
+	@ManyToMany
 	@JoinColumn(name = "borrower_id", nullable = false)
-	private UserEntity borrower_id;
+	private Collection<UserEntity> borrower_id;
 
 	private CustomStatus.TransactionStatus trans_status = CustomStatus.TransactionStatus.PENDING;
 
