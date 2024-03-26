@@ -4,12 +4,12 @@ import com.zolobooky.booky.books.BookEntity;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.users.UserEntity;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @Entity(name = "appeals")
 public class AppealEntity {
 
@@ -37,14 +37,6 @@ public class AppealEntity {
 
 	public AppealEntity() {
 
-	}
-
-	@Override
-	public String toString() {
-		return "AppealEntity{" + "trans_id=" + trans_id + ", book_id=" + book_id + ", borrower_id=" + borrower_id
-				+ ", trans_status=" + trans_status + ", initiation_date=" + initiation_date
-				+ ", expected_completion_dt=" + expected_completion_date + ", status_change_dt=" + status_change_date
-				+ ", completion_dt=" + completion_date + '}';
 	}
 
 }

@@ -6,11 +6,12 @@ import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 import com.zolobooky.booky.users.UserEntity;
 import jakarta.persistence.*;
 import java.sql.Date;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity(name = "books")
 @Table(name = "books")
 public class BookEntity {
