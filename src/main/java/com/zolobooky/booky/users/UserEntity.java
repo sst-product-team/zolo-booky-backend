@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "users")
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = { "id", "name", "fcmToken" }))
+@Table(name = "users")
 public class UserEntity {
 
 	@Id
