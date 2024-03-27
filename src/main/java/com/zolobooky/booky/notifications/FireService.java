@@ -13,7 +13,6 @@ import com.google.firebase.messaging.Notification;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @Service
 public class FireService {
