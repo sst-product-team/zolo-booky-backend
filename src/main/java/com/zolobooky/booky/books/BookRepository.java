@@ -12,4 +12,6 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
 
 	List<BookEntity> findByStatusOrderByName(BookStatus status);
 
+	List<BookEntity> findAllByNameContainsIgnoreCaseAndAuthorContainsIgnoreCase(String name, String author);
+
 }
