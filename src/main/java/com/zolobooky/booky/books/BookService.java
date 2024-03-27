@@ -46,15 +46,16 @@ public class BookService {
 	}
 
 	public Page<BookEntity> getBooks(Integer page, Integer size) {
-		log.info(String.format(" %s books from page: %s fetched from the database.", size, page));
-		return this.bookRepository.findAll(PageRequest.of(page, size));
+		Page<BookEntity> books = this.bookRepository.findAll(PageRequest.of(page, size));
+		log.info(String.format(" %s books from page: %s fetched from the database.", books.getSize(), page));
+		return books;
 	}
 
 	public BookEntity getBookById(Integer id) {
 		BookEntity book;
 		if (this.bookRepository.findById(id).isEmpty()) {
-			log.info(String.format("Book with Book ID: %s Not Found", id));
-			throw new BookNotFoundException(String.format("Book with Book ID: %s Not Found", id));
+			log.info(String.format("book with book id: %s not found", id));
+			throw new BookNotFoundException(String.format("book with book id: %s not found", id));
 
 		}
 		else {
@@ -109,7 +110,7 @@ public class BookService {
 		List<UserEntity> users = this.userRepository.findAll();
 
 		for (UserEntity user : users) {
-			if (user.getName() != newBookToSave.getOwner().getName()) {
+			if (!user.getName().equals(newBookToSave.getOwner().getName())) {
 				this.fireService.sendNotification(user.getFcmToken(), "New Book Alert!!",
 						String.format("New Book %s has been added by %s ", newBookToSave.getName(),
 								newBookToSave.getOwner().getName()));
@@ -123,15 +124,15 @@ public class BookService {
 	public BookEntity deleteBook(Integer id) {
 		BookEntity book;
 		if (this.bookRepository.findById(id).isEmpty()) {
-			throw new BookNotFoundException(String.format("book to delete with book id: %s not found", id));
+			throw new BookNotFoundException(String.format("book with book id: %s not found", id));
 		}
 		else {
 			book = this.bookRepository.findById(id).get();
 			if (book.getStatus().equals(BookStatus.DELISTED)) {
-				throw new BookAlreadyExistsException(String.format("book with book id: %d is already delisted ", id));
+				throw new BookAlreadyExistsException(String.format("book with book id: %d is already de-listed ", id));
 			}
 			book.setStatus(BookStatus.DELISTED);
-			log.info(String.format("book with id: %d Delisted", id));
+			log.info(String.format("book with id: %d de-listed", id));
 
 			List<AppealEntity> appealsOfBook = this.appealRepository.findAll();
 
@@ -142,7 +143,6 @@ public class BookService {
 				}
 			}
 		}
-
 		return this.bookRepository.save(book);
 
 	}
@@ -151,8 +151,8 @@ public class BookService {
 		Optional<BookEntity> book = this.bookRepository.findById(id);
 
 		if (book.isEmpty()) {
-			log.info(String.format("book to update with book id: %s not found", id));
-			throw new BookNotFoundException(String.format("book to update with book id: %s not found", id));
+			log.info(String.format("book to with book id: %s not found", id));
+			throw new BookNotFoundException(String.format("book with book id: %s not found", id));
 		}
 
 		BookEntity bookToUpdate = book.get();
@@ -185,7 +185,7 @@ public class BookService {
 	public BookEntity updateStatus(Integer book_id, CustomStatus.BookStatus newStatus) {
 		BookEntity book = getBookById(book_id);
 		if (book == null) {
-			throw new BookNotFoundException("Book with ID" + book_id + " does not exist");
+			throw new BookNotFoundException("Book with id" + book_id + " does not exist");
 		}
 		book.setStatus(newStatus);
 		return this.bookRepository.save(book);
