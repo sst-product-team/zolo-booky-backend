@@ -23,3 +23,9 @@ spring:
 app:
   fire:
     config: classpath:static/fire-config.json
+
+booky:
+  openapi:
+    prod-url: ${PROVIDER}
+
+    dev-url: http://localhost:8080/
