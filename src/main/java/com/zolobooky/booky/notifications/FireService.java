@@ -1,5 +1,8 @@
 package com.zolobooky.booky.notifications;
 
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
+import com.zolobooky.booky.notifications.FireExceptions.FireSendingError;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +31,20 @@ public class FireService {
 		Message msg = Message.builder().setToken(token).setNotification(notification).build();
 
 		ApiFuture<String> resp = fcm.sendAsync(msg);
+		log.info("Notification Sending initiated." + resp.toString());
 
-		log.info("Notification Sent." + resp.toString());
+		ApiFutures.addCallback(resp, new ApiFutureCallback<>() {
+			@Override
+			public void onFailure(Throwable t) {
+				log.info(String.format("error sending notifications, error: %s", t.getMessage()));
+				throw new FireSendingError(String.format("error sending notifications, error: %s", t.getMessage()));
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				log.info(String.format("Notification sent Successfully to fcm: %s, result: %s", token, result));
+			}
+		});
 	}
 
 }
