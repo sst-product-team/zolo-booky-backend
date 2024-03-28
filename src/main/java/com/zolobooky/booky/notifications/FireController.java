@@ -2,7 +2,6 @@ package com.zolobooky.booky.notifications;
 
 import com.zolobooky.booky.notifications.dto.CreateFireDTO;
 import com.zolobooky.booky.notifications.dto.SendFireDTO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v0/notification")
 @EnableAsync(proxyTargetClass = true)
-@Slf4j
 public class FireController {
 
 	private final FireService fireService;
