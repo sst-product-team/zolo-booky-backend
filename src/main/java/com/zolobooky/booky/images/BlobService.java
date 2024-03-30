@@ -7,6 +7,7 @@ import com.azure.storage.blob.models.BlobStorageException;
 import com.zolobooky.booky.images.ImageExceptions.ImageNotFoundExceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,8 +34,19 @@ public class BlobService {
 
 	}
 
-	public byte[] downloadImage(String fileName) {
+	public void simulateService() {
+		try {
+			long time = 3000L;
+			Thread.sleep(time);
+		}
+		catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
+	@Cacheable(cacheNames = "images", key = "#fileName")
+	public byte[] downloadImage(String fileName) {
+		simulateService();
 		BlobClient blob = blobContainerClient.getBlobClient(fileName);
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();

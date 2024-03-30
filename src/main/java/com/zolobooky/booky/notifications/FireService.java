@@ -3,6 +3,7 @@ package com.zolobooky.booky.notifications;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 import com.zolobooky.booky.notifications.FireExceptions.FireSendingError;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
