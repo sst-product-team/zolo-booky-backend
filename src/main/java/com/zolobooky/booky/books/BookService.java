@@ -5,7 +5,6 @@ import com.zolobooky.booky.appeals.AppealRepository;
 import com.zolobooky.booky.books.BookExceptions.BadRequestException;
 import com.zolobooky.booky.books.BookExceptions.BookAlreadyExistsException;
 import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
-import com.zolobooky.booky.helpers.HelperMethods;
 import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
@@ -24,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import com.zolobooky.booky.helpers.HelperMethods;
 
 @Service
 @Slf4j
