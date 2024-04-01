@@ -17,7 +17,6 @@ public class AppRunner implements CommandLineRunner {
 
 	public void run(String... args) throws Exception {
 		logger.info(".... Fetching books");
-		logger.info("isbn-1234 -->" + bookService.getBooks(0, 5));
 	}
 
 }

@@ -34,11 +34,12 @@ public class BookController {
 	@GetMapping("")
 	public ResponseEntity<List<ListBookDTO>> getBooks(
 			@RequestParam(value = "page", defaultValue = "0") String pageString,
-			@RequestParam(value = "size", defaultValue = "5") String sizeString) {
+			@RequestParam(value = "size", defaultValue = "5") String sizeString,
+			@RequestParam(value = "owner", defaultValue = "-1") Integer owner) {
 		Integer page = Integer.parseInt(pageString);
 		Integer size = Integer.parseInt(sizeString);
 
-		Page<BookEntity> books = this.bookService.getBooks(page, size);
+		Page<BookEntity> books = this.bookService.getBooks(page, size, owner);
 
 		var response = books.stream().map((book) -> this.modelMapper.map(book, ListBookDTO.class)).toList();
 
