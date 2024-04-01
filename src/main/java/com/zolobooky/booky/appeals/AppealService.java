@@ -13,7 +13,6 @@ import com.zolobooky.booky.notifications.FireService;
 import com.zolobooky.booky.users.UserEntity;
 import com.zolobooky.booky.users.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -37,7 +36,6 @@ public class AppealService {
 		this.fireService = fireService;
 	}
 
-	@Cacheable("appeals")
 	public List<AppealEntity> getAllAppeals() {
 
 		List<AppealEntity> appeals = appealRepository.findAll();
@@ -48,7 +46,6 @@ public class AppealService {
 
 	}
 
-	@Cacheable(cacheNames = "IDAppeals", key = "#trans_id")
 	public AppealEntity getAppeal(Integer trans_id) {
 		Optional<AppealEntity> appealEntity = appealRepository.findById(trans_id);
 

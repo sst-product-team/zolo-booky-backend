@@ -18,12 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.zolobooky.booky.helpers.HelperMethods;
 
 @Service
 @Slf4j
@@ -48,20 +45,12 @@ public class BookService {
 		this.appealRepository = appealRepository;
 	}
 
-	@Cacheable("books")
-	public Page<BookEntity> getBooks(Integer page, Integer size, Integer owner_id) {
-		if (owner_id != -1) {
-			UserEntity user = userRepository.getReferenceById(owner_id);
-			List<BookEntity> books = this.bookRepository.findByOwnerOrderByName(user);
-			Pageable booksPage = PageRequest.of(0, books.size());
-			return HelperMethods.convertListToPage(books, booksPage);
-		}
+	public Page<BookEntity> getBooks(Integer page, Integer size) {
 		Page<BookEntity> books = this.bookRepository.findAll(PageRequest.of(page, size));
 		log.info(String.format(" %s books from page: %s fetched from the database.", books.getSize(), page));
 		return books;
 	}
 
-	@Cacheable(cacheNames = "IDBooks", key = "#id")
 	public BookEntity getBookById(Integer id) {
 		BookEntity book;
 		if (this.bookRepository.findById(id).isEmpty()) {
