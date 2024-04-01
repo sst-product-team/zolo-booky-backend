@@ -9,7 +9,7 @@ import com.zolobooky.booky.books.BookExceptions.BadRequestException;
 import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
 import com.zolobooky.booky.books.BookService;
 import com.zolobooky.booky.commons.CustomStatus;
-//import com.zolobooky.booky.notifications.FireService;
+import com.zolobooky.booky.notifications.FireService;
 import com.zolobooky.booky.users.UserEntity;
 import com.zolobooky.booky.users.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +27,14 @@ public class AppealService {
 
 	private final UserService userService;
 
-	// private final FireService fireService;
+	private final FireService fireService;
 
-	public AppealService(AppealRepository appealRepository, BookService bookService, UserService userService
-	// ,FireService fireService
-	) {
+	public AppealService(AppealRepository appealRepository, BookService bookService, UserService userService,
+			FireService fireService) {
 		this.appealRepository = appealRepository;
 		this.bookService = bookService;
 		this.userService = userService;
-		// this.fireService = fireService;
+		this.fireService = fireService;
 	}
 
 	@Cacheable("appeals")
@@ -101,10 +100,9 @@ public class AppealService {
 		appealEntity.setInitiation_date(intiDate);
 		appealEntity.setExpected_completion_date(createAppealDTO.getExpected_completion_date());
 
-		// this.fireService.sendNotification(book.getOwner().getFcmToken(),
-		// String.format("Book request for %s", book.getName()),
-		// String.format("%s wants to borrow your book %s", user.getName(),
-		// book.getName()));
+		this.fireService.sendNotification(book.getOwner().getFcmToken(),
+				String.format("Book request for %s", book.getName()),
+				String.format("%s wants to borrow your book %s", user.getName(), book.getName()));
 
 		log.info(String.format("appeal with id: %s created successfully.", appealEntity.getTrans_id()));
 		return appealRepository.save(appealEntity);
@@ -128,11 +126,10 @@ public class AppealService {
 		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.ONGOING) {
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.UNAVAILABLE);
 			log.info(String.format("request accepted for %s", book.getName()));
-			// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-			// String.format("Request accepted for %s", book.getName()),
-			// String.format("Please collect %s from %s and enjoy your read.",
-			// book.getName(),
-			// book.getOwner().getName()));
+			this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+					String.format("Request accepted for %s", book.getName()),
+					String.format("Please collect %s from %s and enjoy your read.", book.getName(),
+							book.getOwner().getName()));
 
 		}
 
@@ -142,19 +139,18 @@ public class AppealService {
 
 			if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.COMPLETED) {
 				log.info(String.format("%s book return completed.", book.getName()));
-				// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-				// String.format("%s book recieved.", book.getName()),
-				// "Thanks for using Zolo-booky.Hope you had a great experience.");
-				// this.fireService.sendNotification(book.getOwner().getFcmToken(),
-				// String.format("%s book return completed.", book.getName()),
-				// "Thanks for using Zolo-booky.Hope you had a great experience.");
+				this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+						String.format("%s book recieved.", book.getName()),
+						"Thanks for using Zolo-booky.Hope you had a great experience.");
+				this.fireService.sendNotification(book.getOwner().getFcmToken(),
+						String.format("%s book return completed.", book.getName()),
+						"Thanks for using Zolo-booky.Hope you had a great experience.");
 			}
 			else {
 				log.info(String.format("request for %s book has been rejected.", book.getName()));
-				// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-				// String.format("Your request for %s book has been rejected.",
-				// book.getName()),
-				// "Sorry for the inconvenience.Hope to see you next time.");
+				this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+						String.format("Your request for %s book has been rejected.", book.getName()),
+						"Sorry for the inconvenience.Hope to see you next time.");
 			}
 		}
 

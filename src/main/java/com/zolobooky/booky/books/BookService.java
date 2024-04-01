@@ -10,7 +10,7 @@ import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
-//import com.zolobooky.booky.notifications.FireService;
+import com.zolobooky.booky.notifications.FireService;
 import com.zolobooky.booky.users.UserEntity;
 import com.zolobooky.booky.users.UserRepository;
 import com.zolobooky.booky.users.UserService;
@@ -33,18 +33,17 @@ public class BookService {
 
 	private final UserService userService;
 
-	// private final FireService fireService;
+	private final FireService fireService;
 
 	private final UserRepository userRepository;
 
 	private final AppealRepository appealRepository;
 
-	public BookService(BookRepository bookRepository, UserService userService
-	// , FireService fireService
-			, AppealRepository appealRepository, UserRepository userRepository) {
+	public BookService(BookRepository bookRepository, UserService userService, FireService fireService,
+			AppealRepository appealRepository, UserRepository userRepository) {
 		this.bookRepository = bookRepository;
 		this.userService = userService;
-		// this.fireService = fireService;
+		this.fireService = fireService;
 		this.userRepository = userRepository;
 		this.appealRepository = appealRepository;
 	}
@@ -123,11 +122,9 @@ public class BookService {
 
 		for (UserEntity user : users) {
 			if (!user.getName().equals(newBookToSave.getOwner().getName())) {
-				// this.fireService.sendNotification(user.getFcmToken(), "New Book
-				// Alert!!",
-				// String.format("New Book %s has been added by %s ",
-				// newBookToSave.getName(),
-				// newBookToSave.getOwner().getName()));
+				this.fireService.sendNotification(user.getFcmToken(), "New Book Alert!!",
+						String.format("New Book %s has been added by %s ", newBookToSave.getName(),
+								newBookToSave.getOwner().getName()));
 			}
 
 		}
@@ -152,9 +149,8 @@ public class BookService {
 
 			for (AppealEntity appeal : appealsOfBook) {
 				if (appeal.getBook_id().equals(book)) {
-					// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-					// String.format("Book %s delisted.", book.getName()), "Owner has
-					// delisted the book.");
+					this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+							String.format("Book %s delisted.", book.getName()), "Owner has delisted the book.");
 				}
 			}
 		}
