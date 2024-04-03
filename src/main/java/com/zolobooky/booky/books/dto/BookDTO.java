@@ -1,7 +1,5 @@
 package com.zolobooky.booky.books.dto;
 
-import java.sql.Date;
-
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
 import com.zolobooky.booky.users.UserEntity;

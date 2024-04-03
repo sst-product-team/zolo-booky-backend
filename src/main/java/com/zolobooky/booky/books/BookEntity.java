@@ -5,7 +5,6 @@ import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
 import com.zolobooky.booky.users.UserEntity;
 import jakarta.persistence.*;
-import java.sql.Date;
 
 import lombok.Data;
 
