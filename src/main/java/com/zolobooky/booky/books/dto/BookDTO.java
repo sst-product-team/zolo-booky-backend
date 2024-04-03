@@ -1,7 +1,5 @@
 package com.zolobooky.booky.books.dto;
 
-import java.sql.Date;
-
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
 import com.zolobooky.booky.users.UserEntity;
@@ -22,9 +20,7 @@ public class BookDTO {
 
 	BookStatus status;
 
-	Date availability;
-
-	Double rating;
+	Integer maxBorrow;
 
 	String thumbnail;
 

@@ -83,7 +83,7 @@ public class BookService {
 		BookEntity newBookToSave = new BookEntity(createBookDTO);
 		newBookToSave.setOwner(userService.getUser(createBookDTO.getOwner()));
 
-		if (newBookToSave.getName() == null || newBookToSave.getAvailability() == null
+		if (newBookToSave.getName() == null || newBookToSave.getMaxBorrow() == null
 				|| newBookToSave.getOwner() == null) {
 			StringBuilder whichNull = new StringBuilder();
 			if (newBookToSave.getName() == null) {
@@ -94,8 +94,8 @@ public class BookService {
 				whichNull.append("author : <author_name>, ");
 			}
 
-			if (newBookToSave.getAvailability() == null) {
-				whichNull.append("availability : <book_availability>, ");
+			if (newBookToSave.getMaxBorrow() == null) {
+				whichNull.append("maxBorrow : <max_borrow>, ");
 			}
 			if (newBookToSave.getOwner() == null) {
 				whichNull.append("owner : <book_owner>");
@@ -183,8 +183,8 @@ public class BookService {
 			bookToUpdate.setDescription(updateBookDTO.getDescription());
 		}
 
-		if (updateBookDTO.getAvailability() != null) {
-			bookToUpdate.setAvailability(updateBookDTO.getAvailability());
+		if (updateBookDTO.getMaxBorrow() != null) {
+			bookToUpdate.setMaxBorrow(updateBookDTO.getMaxBorrow());
 		}
 
 		if (updateBookDTO.getThumbnail() != null) {

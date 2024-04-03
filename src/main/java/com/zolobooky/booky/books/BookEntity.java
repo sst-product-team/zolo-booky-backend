@@ -5,7 +5,6 @@ import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 
 import com.zolobooky.booky.users.UserEntity;
 import jakarta.persistence.*;
-import java.sql.Date;
 
 import lombok.Data;
 
@@ -30,9 +29,7 @@ public class BookEntity {
 	BookStatus status = BookStatus.AVAILABLE;
 
 	@Column
-	Date availability;
-
-	private Double rating;
+	Integer maxBorrow;
 
 	String thumbnail;
 
@@ -48,7 +45,7 @@ public class BookEntity {
 		this.name = createBookDTO.getName();
 		this.author = createBookDTO.getAuthor();
 		this.description = createBookDTO.getDescription();
-		this.availability = createBookDTO.getAvailability();
+		this.maxBorrow = createBookDTO.getMaxBorrow();
 		this.thumbnail = createBookDTO.getThumbnail();
 		this.owner = null;
 	}
