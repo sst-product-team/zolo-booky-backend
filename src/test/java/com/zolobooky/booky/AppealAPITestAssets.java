@@ -40,8 +40,8 @@ public class AppealAPITestAssets {
 		appealEntity1 = new AppealEntity();
 		appealEntity1.setTrans_id(1);
 		appealEntity1.setTrans_status(CustomStatus.TransactionStatus.PENDING);
-		appealEntity1.setBook_id(demoBook);
-		appealEntity1.setBorrower_id(demoUser);
+		appealEntity1.setBookId(demoBook);
+		appealEntity1.setBorrowerId(demoUser);
 		appealEntity1.setInitiation_date(new Date(1712174174));
 		appealEntity1.setCompletion_date(new Date(1712174174));
 		appealEntity1.setStatus_change_date(new Date(1712174174));
@@ -50,8 +50,8 @@ public class AppealAPITestAssets {
 		appealEntity2 = new AppealEntity();
 		appealEntity2.setTrans_id(2);
 		appealEntity2.setTrans_status(CustomStatus.TransactionStatus.PENDING);
-		appealEntity2.setBook_id(demoBook);
-		appealEntity2.setBorrower_id(demoUser);
+		appealEntity2.setBookId(demoBook);
+		appealEntity2.setBorrowerId(demoUser);
 		appealEntity2.setInitiation_date(new Date(1712174174));
 		appealEntity2.setCompletion_date(new Date(1712174174));
 		appealEntity2.setStatus_change_date(new Date(1712174174));
@@ -60,8 +60,8 @@ public class AppealAPITestAssets {
 		appealEntity3 = new AppealEntity();
 		appealEntity3.setTrans_id(3);
 		appealEntity3.setTrans_status(CustomStatus.TransactionStatus.PENDING);
-		appealEntity3.setBook_id(demoBook);
-		appealEntity3.setBorrower_id(demoUser);
+		appealEntity3.setBookId(demoBook);
+		appealEntity3.setBorrowerId(demoUser);
 		appealEntity3.setInitiation_date(new Date(1712174174));
 		appealEntity3.setCompletion_date(new Date(1712174174));
 		appealEntity3.setStatus_change_date(new Date(1712174174));
@@ -70,8 +70,8 @@ public class AppealAPITestAssets {
 		appealEntity4 = new AppealEntity();
 		appealEntity4.setTrans_id(4);
 		appealEntity4.setTrans_status(CustomStatus.TransactionStatus.PENDING);
-		appealEntity4.setBook_id(demoBook);
-		appealEntity4.setBorrower_id(demoUser);
+		appealEntity4.setBookId(demoBook);
+		appealEntity4.setBorrowerId(demoUser);
 		appealEntity4.setInitiation_date(new Date(1712174174));
 		appealEntity4.setCompletion_date(new Date(1712174174));
 		appealEntity4.setStatus_change_date(new Date(1712174174));
