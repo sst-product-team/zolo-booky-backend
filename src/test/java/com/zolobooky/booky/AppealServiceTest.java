@@ -30,7 +30,7 @@ public class AppealServiceTest {
 
 	@Test
     void getAllAppealsTest() throws Exception {
-        when(appealService.getAllAppeals()).thenReturn(appealAPITestAssets.getAllAppeals());
+        when(appealService.getAllAppeals(-1, -1)).thenReturn(appealAPITestAssets.getAllAppeals());
         mockMvc.perform(get("/v0/appeals")).andExpect(status().isOk());
     }
 
