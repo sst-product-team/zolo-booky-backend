@@ -11,9 +11,9 @@ public class AppealDTO {
 
 	Integer trans_id;
 
-	BookEntity book_id;
+	BookEntity bookId;
 
-	UserEntity borrower_id;
+	UserEntity borrowerId;
 
 	String trans_status;
 

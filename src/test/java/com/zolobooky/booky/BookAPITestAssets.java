@@ -1,18 +1,21 @@
 package com.zolobooky.booky;
 
 import com.zolobooky.booky.books.BookEntity;
+import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.users.UserEntity;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+
+import java.sql.Date;
 import java.util.List;
 
 @SpringBootTest
 public class BookAPITestAssets {
 
-	private final List<BookEntity> books;
+	private List<BookEntity> books;
 
 	public BookEntity book1;
 
@@ -60,6 +63,13 @@ public class BookAPITestAssets {
 	public BookEntity getDelistedBook() {
 		book1.setStatus(CustomStatus.BookStatus.DELISTED);
 		return book1;
+	}
+
+	public CreateBookDTO getCreateBookDTO() {
+		CreateBookDTO bookDTO = new CreateBookDTO();
+		bookDTO.setName(book2.getName());
+		bookDTO.setOwner(book2.getOwner().getId());
+		return bookDTO;
 	}
 
 }

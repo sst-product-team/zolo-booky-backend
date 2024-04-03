@@ -25,8 +25,9 @@ public class AppealController {
 	}
 
 	@GetMapping("/v0/appeals")
-	public List<AppealDTO> getAllAppeals() {
-		List<AppealEntity> appealsList = appealService.getAllAppeals();
+	public List<AppealDTO> getAllAppeals(@RequestParam(value = "book", defaultValue = "-1") Integer book,
+			@RequestParam(value = "borrower", defaultValue = "-1") Integer user) {
+		List<AppealEntity> appealsList = appealService.getAllAppeals(book, user);
 		List<AppealDTO> appealDTOList = new ArrayList<>();
 
 		for (AppealEntity appealEntity : appealsList) {

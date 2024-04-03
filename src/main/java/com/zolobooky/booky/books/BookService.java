@@ -9,7 +9,8 @@ import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
-import com.zolobooky.booky.notifications.FireService;
+import com.zolobooky.booky.helpers.HelperMethods;
+//import com.zolobooky.booky.notifications.FireService;
 import com.zolobooky.booky.users.UserEntity;
 import com.zolobooky.booky.users.UserRepository;
 import com.zolobooky.booky.users.UserService;
@@ -18,8 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,22 +33,30 @@ public class BookService {
 
 	private final UserService userService;
 
-	private final FireService fireService;
+	// @Autowired
+	// private final FireService fireService;
 
 	private final UserRepository userRepository;
 
 	private final AppealRepository appealRepository;
 
-	public BookService(BookRepository bookRepository, UserService userService, FireService fireService,
+	public BookService(BookRepository bookRepository, UserService userService,
+			// FireService fireService,
 			AppealRepository appealRepository, UserRepository userRepository) {
 		this.bookRepository = bookRepository;
 		this.userService = userService;
-		this.fireService = fireService;
+		// this.fireService = fireService;
 		this.userRepository = userRepository;
 		this.appealRepository = appealRepository;
 	}
 
-	public Page<BookEntity> getBooks(Integer page, Integer size) {
+	public Page<BookEntity> getBooks(Integer page, Integer size, Integer owner) {
+		if (owner != -1) {
+			UserEntity user = userRepository.getReferenceById(owner);
+			List<BookEntity> books = this.bookRepository.findByOwnerOrderByName(user);
+			Pageable booksPage = PageRequest.of(0, books.size());
+			return HelperMethods.convertListToPage(books, booksPage);
+		}
 		Page<BookEntity> books = this.bookRepository.findAll(PageRequest.of(page, size));
 		log.info(String.format(" %s books from page: %s fetched from the database.", books.getSize(), page));
 		return books;
@@ -72,7 +83,7 @@ public class BookService {
 		BookEntity newBookToSave = new BookEntity(createBookDTO);
 		newBookToSave.setOwner(userService.getUser(createBookDTO.getOwner()));
 
-		if (newBookToSave.getName() == null || newBookToSave.getAvailability() == null
+		if (newBookToSave.getName() == null || newBookToSave.getMaxBorrow() == null
 				|| newBookToSave.getOwner() == null) {
 			StringBuilder whichNull = new StringBuilder();
 			if (newBookToSave.getName() == null) {
@@ -83,8 +94,8 @@ public class BookService {
 				whichNull.append("author : <author_name>, ");
 			}
 
-			if (newBookToSave.getAvailability() == null) {
-				whichNull.append("availability : <book_availability>, ");
+			if (newBookToSave.getMaxBorrow() == null) {
+				whichNull.append("maxBorrow : <max_borrow>, ");
 			}
 			if (newBookToSave.getOwner() == null) {
 				whichNull.append("owner : <book_owner>");
@@ -111,9 +122,11 @@ public class BookService {
 
 		for (UserEntity user : users) {
 			if (!user.getName().equals(newBookToSave.getOwner().getName())) {
-				this.fireService.sendNotification(user.getFcmToken(), "New Book Alert!!",
-						String.format("New Book %s has been added by %s ", newBookToSave.getName(),
-								newBookToSave.getOwner().getName()));
+				// this.fireService.sendNotification(user.getFcmToken(), "New Book
+				// Alert!!",
+				// String.format("New Book %s has been added by %s ",
+				// newBookToSave.getName(),
+				// newBookToSave.getOwner().getName()));
 			}
 
 		}
@@ -129,7 +142,7 @@ public class BookService {
 		else {
 			book = this.bookRepository.findById(id).get();
 			if (book.getStatus().equals(BookStatus.DELISTED)) {
-				throw new BookAlreadyExistsException(String.format("book with book id: %d is already de-listed ", id));
+				throw new BadRequestException("Book with id " + id + " is already delisted");
 			}
 			book.setStatus(BookStatus.DELISTED);
 			log.info(String.format("book with id: %d de-listed", id));
@@ -137,9 +150,10 @@ public class BookService {
 			List<AppealEntity> appealsOfBook = this.appealRepository.findAll();
 
 			for (AppealEntity appeal : appealsOfBook) {
-				if (appeal.getBook_id().equals(book)) {
-					this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-							String.format("Book %s delisted.", book.getName()), "Owner has delisted the book.");
+				if (appeal.getBookId().equals(book)) {
+					// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+					// String.format("Book %s delisted.", book.getName()), "Owner has
+					// delisted the book.");
 				}
 			}
 		}
@@ -169,8 +183,8 @@ public class BookService {
 			bookToUpdate.setDescription(updateBookDTO.getDescription());
 		}
 
-		if (updateBookDTO.getAvailability() != null) {
-			bookToUpdate.setAvailability(updateBookDTO.getAvailability());
+		if (updateBookDTO.getMaxBorrow() != null) {
+			bookToUpdate.setMaxBorrow(updateBookDTO.getMaxBorrow());
 		}
 
 		if (updateBookDTO.getThumbnail() != null) {
