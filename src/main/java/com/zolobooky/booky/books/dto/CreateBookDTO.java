@@ -18,7 +18,7 @@ public class CreateBookDTO {
 	String description;
 
 	@NonNull
-	Date availability;
+	Integer maxBorrow;
 
 	String thumbnail;
 

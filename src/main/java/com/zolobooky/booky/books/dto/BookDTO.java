@@ -22,9 +22,7 @@ public class BookDTO {
 
 	BookStatus status;
 
-	Date availability;
-
-	Double rating;
+	Integer maxBorrow;
 
 	String thumbnail;
 

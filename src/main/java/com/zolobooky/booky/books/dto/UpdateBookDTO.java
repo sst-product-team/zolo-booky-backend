@@ -15,7 +15,7 @@ public class UpdateBookDTO {
 
 	String description;
 
-	Date availability;
+	Integer maxBorrow;
 
 	String thumbnail;
 
