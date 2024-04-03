@@ -34,7 +34,6 @@ public class BookServiceTest {
 		this.mockMvc.perform(get("/v0/books/0")).andExpect(status().isOk());
 	}
 
-	//
 	@Test
 	void delistBookSerivceTest() throws Exception {
 		when(bookService.deleteBook(0)).thenReturn(bookAPITestAssets.getDelistedBook());
