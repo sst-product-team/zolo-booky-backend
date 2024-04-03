@@ -17,11 +17,11 @@ public class AppealEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "book_id", nullable = false)
-	private BookEntity book_id;
+	private BookEntity bookId;
 
 	@ManyToOne
 	@JoinColumn(name = "borrower_id", nullable = false)
-	private UserEntity borrower_id;
+	private UserEntity borrowerId;
 
 	private CustomStatus.TransactionStatus trans_status = CustomStatus.TransactionStatus.PENDING;
 
