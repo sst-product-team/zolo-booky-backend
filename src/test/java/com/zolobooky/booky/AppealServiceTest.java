@@ -39,7 +39,7 @@ public class AppealServiceTest {
         mockMvc.perform(get("/v0/appeals/3")).andExpect(status().isOk());
     }
 
-    // @Test
+    //@Test
     void postAppealTest() throws Exception {
         CreateAppealDTO createAppealDTO = new CreateAppealDTO(900, 42, new Date(2024, 4, 4));
         when(appealService.createAppeal(createAppealDTO)).thenReturn(appealAPITestAssets.postAppeal());
