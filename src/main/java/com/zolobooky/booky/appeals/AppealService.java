@@ -9,11 +9,14 @@ import com.zolobooky.booky.books.BookExceptions.BadRequestException;
 import com.zolobooky.booky.books.BookExceptions.BookNotFoundException;
 import com.zolobooky.booky.books.BookService;
 import com.zolobooky.booky.commons.CustomStatus;
-import com.zolobooky.booky.notifications.FireService;
+//import com.zolobooky.booky.notifications.FireService;
 import com.zolobooky.booky.users.UserEntity;
 import com.zolobooky.booky.users.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 @Slf4j
@@ -26,18 +29,32 @@ public class AppealService {
 
 	private final UserService userService;
 
-	private final FireService fireService;
+	// @Autowired
+	// private final FireService fireService;
 
-	public AppealService(AppealRepository appealRepository, BookService bookService, UserService userService,
-			FireService fireService) {
+	public AppealService(AppealRepository appealRepository, BookService bookService, UserService userService
+	// ,FireService fireService
+	) {
 		this.appealRepository = appealRepository;
 		this.bookService = bookService;
 		this.userService = userService;
-		this.fireService = fireService;
+		// this.fireService = fireService;
 	}
 
-	public List<AppealEntity> getAllAppeals() {
-
+	public List<AppealEntity> getAllAppeals(Integer book, Integer user) {
+		if (book != -1 && user != -1) {
+			BookEntity bookEntity = bookService.getBookById(book);
+			UserEntity userEntity = userService.getUser(user);
+			return appealRepository.findByBookIdAndBorrowerId(bookEntity, userEntity);
+		}
+		else if (book != -1) {
+			BookEntity bookEntity = bookService.getBookById(book);
+			return appealRepository.findByBookId(bookEntity);
+		}
+		else if (user != -1) {
+			UserEntity userEntity = userService.getUser(user);
+			return appealRepository.findByBorrowerId(userEntity);
+		}
 		List<AppealEntity> appeals = appealRepository.findAll();
 
 		log.info(String.format("%s appeals fetched from the database.", appeals.size()));
@@ -62,27 +79,27 @@ public class AppealService {
 
 	public AppealEntity createAppeal(CreateAppealDTO createAppealDTO) {
 
-		if (createAppealDTO.getBook_id() == null || createAppealDTO.getBorrower_id() == null
+		if (createAppealDTO.getBookId() == null || createAppealDTO.getBorrowerId() == null
 				|| createAppealDTO.getExpected_completion_date() == null) {
 			throw new BadRequestException("BAD REQUEST: Missing required body");
 		}
 
-		BookEntity book = bookService.getBookById(createAppealDTO.getBook_id());
-		UserEntity user = userService.getUser(createAppealDTO.getBorrower_id());
+		BookEntity book = bookService.getBookById(createAppealDTO.getBookId());
+		UserEntity user = userService.getUser(createAppealDTO.getBorrowerId());
 
 		List<AppealEntity> appeals = this.appealRepository.findAll();
 
 		for (var appeal : appeals) {
 			CustomStatus.TransactionStatus ongoing = CustomStatus.TransactionStatus.ONGOING;
 			CustomStatus.TransactionStatus pending = CustomStatus.TransactionStatus.PENDING;
-			if (appeal.getBorrower_id().getId().equals(createAppealDTO.getBorrower_id())
-					&& appeal.getBook_id().getId().equals(book.getId()) && appeal.getTrans_status() == pending) {
+			if (appeal.getBorrowerId().getId().equals(createAppealDTO.getBorrowerId())
+					&& appeal.getBookId().getId().equals(book.getId()) && appeal.getTrans_status() == pending) {
 				log.info(String.format("pending appeal by the same user : %s already exists for the book.",
-						createAppealDTO.getBorrower_id()));
+						createAppealDTO.getBorrowerId()));
 				throw new AppealAlreadyExistsException("pending appeal by the same user already exists for the book.");
 			}
 
-			if (Objects.equals(appeal.getBook_id().getId(), book.getId()) && appeal.getTrans_status() == ongoing) {
+			if (Objects.equals(appeal.getBookId().getId(), book.getId()) && appeal.getTrans_status() == ongoing) {
 				log.info(
 						String.format("Ongoing appeal for this book with id: %s already exists", appeal.getTrans_id()));
 				throw new AppealAlreadyExistsException("Ongoing appeal for this book exists");
@@ -92,14 +109,15 @@ public class AppealService {
 
 		Date intiDate = new Date();
 		AppealEntity appealEntity = new AppealEntity();
-		appealEntity.setBook_id(book);
-		appealEntity.setBorrower_id(user);
+		appealEntity.setBookId(book);
+		appealEntity.setBorrowerId(user);
 		appealEntity.setInitiation_date(intiDate);
 		appealEntity.setExpected_completion_date(createAppealDTO.getExpected_completion_date());
 
-		this.fireService.sendNotification(book.getOwner().getFcmToken(),
-				String.format("Book request for %s", book.getName()),
-				String.format("%s wants to borrow your book %s", user.getName(), book.getName()));
+		// this.fireService.sendNotification(book.getOwner().getFcmToken(),
+		// String.format("Book request for %s", book.getName()),
+		// String.format("%s wants to borrow your book %s", user.getName(),
+		// book.getName()));
 
 		log.info(String.format("appeal with id: %s created successfully.", appealEntity.getTrans_id()));
 		return appealRepository.save(appealEntity);
@@ -118,15 +136,16 @@ public class AppealService {
 		}
 		Date then = new Date();
 		AppealEntity appeal = appealEntity.get();
-		BookEntity book = appeal.getBook_id();
+		BookEntity book = appeal.getBookId();
 
 		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.ONGOING) {
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.UNAVAILABLE);
 			log.info(String.format("request accepted for %s", book.getName()));
-			this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-					String.format("Request accepted for %s", book.getName()),
-					String.format("Please collect %s from %s and enjoy your read.", book.getName(),
-							book.getOwner().getName()));
+			// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+			// String.format("Request accepted for %s", book.getName()),
+			// String.format("Please collect %s from %s and enjoy your read.",
+			// book.getName(),
+			// book.getOwner().getName()));
 
 		}
 
@@ -136,18 +155,19 @@ public class AppealService {
 
 			if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.COMPLETED) {
 				log.info(String.format("%s book return completed.", book.getName()));
-				this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-						String.format("%s book recieved.", book.getName()),
-						"Thanks for using Zolo-booky.Hope you had a great experience.");
-				this.fireService.sendNotification(book.getOwner().getFcmToken(),
-						String.format("%s book return completed.", book.getName()),
-						"Thanks for using Zolo-booky.Hope you had a great experience.");
+				// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+				// String.format("%s book recieved.", book.getName()),
+				// "Thanks for using Zolo-booky.Hope you had a great experience.");
+				// this.fireService.sendNotification(book.getOwner().getFcmToken(),
+				// String.format("%s book return completed.", book.getName()),
+				// "Thanks for using Zolo-booky.Hope you had a great experience.");
 			}
 			else {
 				log.info(String.format("request for %s book has been rejected.", book.getName()));
-				this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-						String.format("Your request for %s book has been rejected.", book.getName()),
-						"Sorry for the inconvenience.Hope to see you next time.");
+				// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
+				// String.format("Your request for %s book has been rejected.",
+				// book.getName()),
+				// "Sorry for the inconvenience.Hope to see you next time.");
 			}
 		}
 

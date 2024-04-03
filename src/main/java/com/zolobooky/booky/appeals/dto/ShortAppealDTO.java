@@ -13,7 +13,7 @@ public class ShortAppealDTO {
 
 	Integer id;
 
-	Integer bookid;
+	Integer bookId;
 
 	String borrower;
 

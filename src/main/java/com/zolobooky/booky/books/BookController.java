@@ -4,19 +4,13 @@ import com.zolobooky.booky.books.dto.BookDTO;
 import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.ListBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
-import java.util.List;
+import com.zolobooky.booky.commons.CustomStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v0/books")
@@ -66,6 +60,15 @@ public class BookController {
 	public ResponseEntity<BookDTO> deleteBook(@PathVariable Integer id) {
 		var deletedBook = this.bookService.deleteBook(id);
 		var response = this.modelMapper.map(deletedBook, BookDTO.class);
+
+		return ResponseEntity.ok(response);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<BookDTO> changeStatus(@PathVariable Integer id,
+			@RequestBody CustomStatus.BookStatus newBookStatus) {
+		var updateBook = this.bookService.updateStatus(id, newBookStatus);
+		var response = this.modelMapper.map(updateBook, BookDTO.class);
 
 		return ResponseEntity.ok(response);
 	}
