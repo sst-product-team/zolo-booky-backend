@@ -1,7 +1,5 @@
 package com.zolobooky.booky.books.dto;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +13,7 @@ public class UpdateBookDTO {
 
 	String description;
 
-	Date availability;
+	Integer maxBorrow;
 
 	String thumbnail;
 

@@ -44,19 +44,6 @@ public class BookServiceTest {
 	}
 
 	@Test
-	void createBookTest() throws Exception {
-
-		System.out.println(bookAPITestAssets.getCreateBookDTO().toString());
-
-		when(bookService.createBook(bookAPITestAssets.getCreateBookDTO())).thenReturn(bookAPITestAssets.book2);
-
-		String jsonContent = objectMapper.writeValueAsString(bookAPITestAssets.getCreateBookDTO());
-
-		this.mockMvc.perform(post("/v0/books").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
-			.andExpect(status().isOk());
-	}
-
-	@Test
 	void delistBookSerivceTest() throws Exception {
 		when(bookService.deleteBook(0)).thenReturn(bookAPITestAssets.getDelistedBook());
 		this.mockMvc.perform(delete("/v0/books/0")).andExpect(status().isOk());

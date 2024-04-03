@@ -48,7 +48,6 @@ public class BookAPITestAssets {
 		book2.setStatus(CustomStatus.BookStatus.AVAILABLE);
 		book2.setOwner(user1);
 		book2.setThumbnail("TEST IMAGE URL");
-		book2.setAvailability(new Date(2024, 4, 5));
 
 		books = List.of(book1, book2);
 	}
@@ -70,7 +69,6 @@ public class BookAPITestAssets {
 		CreateBookDTO bookDTO = new CreateBookDTO();
 		bookDTO.setName(book2.getName());
 		bookDTO.setOwner(book2.getOwner().getId());
-		bookDTO.setAvailability(book2.getAvailability());
 		return bookDTO;
 	}
 
