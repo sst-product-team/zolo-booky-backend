@@ -29,7 +29,3 @@ booky:
     prod-url: ${PROVIDER}
 
     dev-url: http://localhost:8080/
-
-server:
-  servlet:
-    context-path: /${VERSION}
