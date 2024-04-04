@@ -13,8 +13,6 @@ import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.users.UserEntity;
 import com.zolobooky.booky.users.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
