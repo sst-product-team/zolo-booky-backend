@@ -20,6 +20,8 @@ public class ListBookDTO {
 
 	String thumbnail;
 
+	Integer requestCount;
+
 	UserEntity owner;
 
 }

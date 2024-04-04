@@ -22,6 +22,8 @@ public class BookDTO {
 
 	Integer maxBorrow;
 
+	Integer requestCount;
+
 	String thumbnail;
 
 	UserEntity owner;

@@ -31,6 +31,8 @@ public class BookEntity {
 	@Column
 	Integer maxBorrow;
 
+	Integer requestCount = 0;
+
 	String thumbnail;
 
 	@PrimaryKeyJoinColumn
