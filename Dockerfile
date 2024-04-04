@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-slim AS build
 
 COPY . .
 
-RUN ./gradlew bootJar --no-daemon
+RUN ./gradlew bootJar --no-daemon --refresh-dependencies
 
 FROM openjdk:17-jdk-slim
 
