@@ -156,6 +156,9 @@ public class AppealService {
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.AVAILABLE);
 
 			if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.COMPLETED) {
+				book.setRequestCount(book.getRequestCount() - 1);
+				this.bookRepository.save(book);
+
 				log.info(String.format("%s book return completed.", book.getName()));
 				this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
 						String.format("%s book recieved.", book.getName()),
@@ -165,15 +168,15 @@ public class AppealService {
 						"Thanks for using Zolo-booky.Hope you had a great experience.");
 			}
 			else {
+				book.setRequestCount(book.getRequestCount() - 1);
+				this.bookRepository.save(book);
+
 				log.info(String.format("request for %s book has been rejected.", book.getName()));
 				this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
 						String.format("Your request for %s book has been rejected.", book.getName()),
 						"Sorry for the inconvenience.Hope to see you next time.");
 			}
 		}
-
-		book.setRequestCount(book.getRequestCount() - 1);
-		this.bookRepository.save(book);
 
 		appeal.setTrans_status(appealDTO.getTrans_status());
 		appeal.setStatus_change_date(then);
