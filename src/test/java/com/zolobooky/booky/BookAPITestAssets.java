@@ -64,12 +64,11 @@ public class BookAPITestAssets {
 		return book1;
 	}
 
-	/*public CreateBookDTO getCreateBookDTO() {
-		CreateBookDTO bookDTO = new CreateBookDTO();
-		bookDTO.setName(book2.getName());
-		bookDTO.setOwner(book2.getOwner().getId());
-		return bookDTO;
-	}*/
+	/*
+	 * public CreateBookDTO getCreateBookDTO() { CreateBookDTO bookDTO = new
+	 * CreateBookDTO(); bookDTO.setName(book2.getName());
+	 * bookDTO.setOwner(book2.getOwner().getId()); return bookDTO; }
+	 */
 
 	public String toJSONString(CreateBookDTO dto) {
 		String name = dto.getName();
