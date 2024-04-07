@@ -104,4 +104,8 @@ public class BookAPITestAssets {
 		return book1;
 	}
 
+	public BookEntity updateBookStatus() {
+		return book1;
+	}
+
 }

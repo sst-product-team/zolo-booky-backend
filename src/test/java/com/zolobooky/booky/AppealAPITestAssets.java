@@ -103,7 +103,7 @@ public class AppealAPITestAssets {
 	}
 
 	public String toJSONString(UpdateAppealDTO dto) {
-		return "{\"trans_status\":" + dto.getTrans_status().ordinal() + "}";
+		return "{\"trans_status\":" + dto.getTrans_status().toString() + "}";
 	}
 
 	public AppealEntity postAppeal() {

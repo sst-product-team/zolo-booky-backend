@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import com.zolobooky.booky.books.dto.CreateBookDTO;
 import com.zolobooky.booky.books.dto.UpdateBookDTO;
+import com.zolobooky.booky.commons.CustomStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -82,6 +83,15 @@ public class BookServiceTest {
 		String payload = bookAPITestAssets.toJSONString(updateBookDTO);
 
 		mockMvc.perform(patch("/v0/books/1").contentType(MediaType.APPLICATION_JSON).content(payload))
+			.andExpect(status().isOk());
+	}
+
+	// @Test
+	void changeBookStatusTest() throws Exception {
+		BookEntity bookEntity = bookAPITestAssets.updateBookStatus();
+
+		when(bookService.updateStatus(any(Integer.class), any(CustomStatus.BookStatus.class))).thenReturn(bookEntity);
+		mockMvc.perform(put("/v0/books/1").contentType(MediaType.APPLICATION_JSON).content(""))
 			.andExpect(status().isOk());
 	}
 
