@@ -2,6 +2,7 @@ package com.zolobooky.booky;
 
 import com.zolobooky.booky.books.BookEntity;
 import com.zolobooky.booky.books.dto.CreateBookDTO;
+import com.zolobooky.booky.books.dto.UpdateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.users.UserEntity;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -79,11 +80,27 @@ public class BookAPITestAssets {
 		Integer owner = dto.getOwner();
 
 		return "{" + "\"name\": \"" + name + "\", " + "\"author\": \"" + author + "\", " + "\"description\": \""
-				+ description + "\", " + "\"maxBorrow\": \"" + maxBorrow + "\", " + "\"thumbnail\": \"" + thumbnail
-				+ "\", " + "\"owner\": \"" + owner + "\"" + "}";
+				+ description + "\", " + "\"maxBorrow\":" + maxBorrow + ", " + "\"thumbnail\": \"" + thumbnail + "\", "
+				+ "\"owner\": \"" + owner + "\"" + "}";
+	}
+
+	public String toJSONString(UpdateBookDTO dto) {
+		String name = dto.getName();
+		String author = dto.getAuthor();
+		String description = dto.getDescription();
+		Integer maxBorrow = dto.getMaxBorrow();
+		String thumbnail = dto.getThumbnail();
+
+		return "{" + "\"name\": \"" + name + "\", " + "\"author\": \"" + author + "\", " + "\"description\": \""
+				+ description + "\", " + "\"maxBorrow\": " + maxBorrow + ", " + "\"thumbnail\": \"" + thumbnail + "\""
+				+ "}";
 	}
 
 	public BookEntity createBook() {
+		return book1;
+	}
+
+	public BookEntity updateBook() {
 		return book1;
 	}
 
