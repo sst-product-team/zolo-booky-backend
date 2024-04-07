@@ -91,7 +91,9 @@ public class BookServiceTest {
 		BookEntity bookEntity = bookAPITestAssets.updateBookStatus();
 
 		when(bookService.updateStatus(any(Integer.class), any(CustomStatus.BookStatus.class))).thenReturn(bookEntity);
-		mockMvc.perform(put("/v0/books/1").contentType(MediaType.APPLICATION_JSON).content(""))
+		mockMvc
+			.perform(put("/v0/books/1").contentType(MediaType.APPLICATION_JSON)
+				.content("" + CustomStatus.BookStatus.DELISTED))
 			.andExpect(status().isOk());
 	}
 
