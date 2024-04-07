@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="80" height="80" src="https://img.icons8.com/officel/80/spring-logo.png" alt="spring-logo"/>
+  <img width="96" height="96" src="https://img.icons8.com/pulsar-gradient/96/literature.png" alt="literature"/>
 </p>
 <p align="center">
     <h1 align="center">ZOLO-BOOKY-BACKEND</h1>
