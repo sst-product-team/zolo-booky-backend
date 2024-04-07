@@ -2,6 +2,7 @@ package com.zolobooky.booky;
 
 import com.zolobooky.booky.appeals.AppealEntity;
 import com.zolobooky.booky.appeals.dto.CreateAppealDTO;
+import com.zolobooky.booky.appeals.dto.UpdateAppealDTO;
 import com.zolobooky.booky.books.BookEntity;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.users.UserEntity;
@@ -101,8 +102,16 @@ public class AppealAPITestAssets {
 				+ formattedDate + "\"}";
 	}
 
+	public String toJSONString(UpdateAppealDTO dto) {
+		return "{\"trans_status\":" + dto.getTrans_status().ordinal() + "}";
+	}
+
 	public AppealEntity postAppeal() {
 		return this.appealEntity4;
+	}
+
+	public AppealEntity updateAppealStatus() {
+		return this.appealEntity2;
 	}
 
 }

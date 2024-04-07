@@ -4,6 +4,8 @@ import com.zolobooky.booky.appeals.AppealController;
 import com.zolobooky.booky.appeals.AppealEntity;
 import com.zolobooky.booky.appeals.AppealService;
 import com.zolobooky.booky.appeals.dto.CreateAppealDTO;
+import com.zolobooky.booky.appeals.dto.UpdateAppealDTO;
+import com.zolobooky.booky.commons.CustomStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,8 +18,7 @@ import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AppealController.class)
@@ -54,6 +55,21 @@ public class AppealServiceTest {
 		String payload = appealAPITestAssets.toJSONString(createAppealDTO);
 
 		mockMvc.perform(post("/v0/appeals").contentType(MediaType.APPLICATION_JSON).content(payload))
+			.andExpect(status().isOk());
+	}
+
+	@Test
+	void updateAppealStatus() throws Exception {
+		UpdateAppealDTO updateAppealDTO = new UpdateAppealDTO();
+		updateAppealDTO.setTrans_status(CustomStatus.TransactionStatus.PENDING);
+
+		AppealEntity appealEntity = appealAPITestAssets.updateAppealStatus();
+		when(appealService.updateAppealStatus(3, updateAppealDTO)).thenReturn(appealEntity);
+
+		String payload = appealAPITestAssets.toJSONString(updateAppealDTO);
+		System.out.println(payload);
+
+		mockMvc.perform(patch("/v0/appeals/3").contentType(MediaType.APPLICATION_JSON).content(payload))
 			.andExpect(status().isOk());
 	}
 
