@@ -1,6 +1,7 @@
 package com.zolobooky.booky;
 
 import com.zolobooky.booky.appeals.AppealController;
+import com.zolobooky.booky.appeals.AppealEntity;
 import com.zolobooky.booky.appeals.AppealService;
 import com.zolobooky.booky.appeals.dto.CreateAppealDTO;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,14 +43,17 @@ public class AppealServiceTest {
         mockMvc.perform(get("/v0/appeals/3")).andExpect(status().isOk());
     }
 
-	// @Test
+	@Test
 	void postAppealTest() throws Exception {
-		CreateAppealDTO createAppealDTO = new CreateAppealDTO(900, 42, new Date(2024, 4, 4));
-		when(appealService.createAppeal(createAppealDTO)).thenReturn(appealAPITestAssets.postAppeal());
+		Date demoDate = new SimpleDateFormat("yyyy-MM-dd").parse("2024-04-04");
+		CreateAppealDTO createAppealDTO = new CreateAppealDTO(900, 42, demoDate);
 
-		mockMvc
-			.perform(post("/v0/appeals").contentType(MediaType.APPLICATION_JSON)
-				.content("{\"book_id\": 900, \"borrower_id\": 42, \"expected_completion_date\": \"2024-04-04\"}"))
+		AppealEntity appealEntity = appealAPITestAssets.postAppeal();
+		when(appealService.createAppeal(any(createAppealDTO.getClass()))).thenReturn(appealEntity);
+
+		String payload = appealAPITestAssets.toJSONString(createAppealDTO);
+
+		mockMvc.perform(post("/v0/appeals").contentType(MediaType.APPLICATION_JSON).content(payload))
 			.andExpect(status().isOk());
 	}
 

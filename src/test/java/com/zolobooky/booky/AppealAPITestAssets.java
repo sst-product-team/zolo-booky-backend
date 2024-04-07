@@ -1,11 +1,13 @@
 package com.zolobooky.booky;
 
 import com.zolobooky.booky.appeals.AppealEntity;
+import com.zolobooky.booky.appeals.dto.CreateAppealDTO;
 import com.zolobooky.booky.books.BookEntity;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.users.UserEntity;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class AppealAPITestAssets {
@@ -86,6 +88,17 @@ public class AppealAPITestAssets {
 
 	public AppealEntity getAppeal() {
 		return this.appealEntity3;
+	}
+
+	public String toJSONString(CreateAppealDTO dto) {
+		Integer borrowerId = dto.getBorrowerId();
+		Integer bookId = dto.getBookId();
+		Date date = dto.getExpected_completion_date();
+
+		String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+
+		return "{\"book_id\":" + bookId + ", \"borrower_id\":" + borrowerId + ", \"expected_completion_date\":\""
+				+ formattedDate + "\"}";
 	}
 
 	public AppealEntity postAppeal() {
