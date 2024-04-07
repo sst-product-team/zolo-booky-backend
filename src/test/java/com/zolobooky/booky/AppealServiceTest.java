@@ -59,7 +59,7 @@ public class AppealServiceTest {
 	}
 
 	// @Test
-	void updateAppealStatus() throws Exception {
+	void updateAppealStatusTest() throws Exception {
 		UpdateAppealDTO updateAppealDTO = new UpdateAppealDTO();
 		updateAppealDTO.setTrans_status(CustomStatus.TransactionStatus.PENDING);
 
