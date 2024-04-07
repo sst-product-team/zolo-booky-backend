@@ -362,13 +362,17 @@ mvn test
 
 ---
 
-## 🛠 Project Roadmap
+[//]: # (## 🛠 Project Roadmap)
 
-- [X] `► INSERT-TASK-1`
-- [ ] `► INSERT-TASK-2`
-- [ ] `► ...`
+[//]: # ()
+[//]: # (- [X] `► INSERT-TASK-1`)
 
----
+[//]: # (- [ ] `► INSERT-TASK-2`)
+
+[//]: # (- [ ] `► ...`)
+
+[//]: # ()
+[//]: # (---)
 
 ## 🤝 Contributing
 
@@ -415,7 +419,7 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 ## 👏 Acknowledgments
 
-- List any resources, contributors, inspiration, etc. here.
+- Team: 
 
 [**Return**](#-quick-links)
 
