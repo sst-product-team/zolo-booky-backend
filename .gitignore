@@ -39,3 +39,4 @@ out/
 
 ### Resources Direcotry ###
 application.properties
+.venv
