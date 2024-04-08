@@ -142,6 +142,9 @@ public class AppealService {
 		BookEntity book = appeal.getBookId();
 
 		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.ONGOING) {
+			book.setRequestCount(book.getRequestCount() - 1);
+			this.bookRepository.save(book);
+
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.UNAVAILABLE);
 			log.info(String.format("request accepted for %s", book.getName()));
 			this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
@@ -156,8 +159,6 @@ public class AppealService {
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.AVAILABLE);
 
 			if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.COMPLETED) {
-				book.setRequestCount(book.getRequestCount() - 1);
-				this.bookRepository.save(book);
 
 				log.info(String.format("%s book return completed.", book.getName()));
 				this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
@@ -183,6 +184,20 @@ public class AppealService {
 		log.info(String.format("status of appeal with id: %s updated to %s successfully.", appeal.getTrans_id(),
 				appeal.getTrans_status()));
 		return appealRepository.save(appeal);
+	}
+
+	public void autoRemoveOutdated() {
+		List<AppealEntity> appeals = this.appealRepository.findAll();
+
+		for (AppealEntity appeal : appeals) {
+			if (!appeal.getExpected_completion_date().before(new Date())
+					&& appeal.getTrans_status().equals(CustomStatus.TransactionStatus.PENDING)) {
+				appeal.setCompletion_date(new Date());
+				appeal.setStatus_change_date(new Date());
+				appeal.setTrans_status(CustomStatus.TransactionStatus.REJECTED);
+				this.appealRepository.save(appeal);
+			}
+		}
 	}
 
 }
