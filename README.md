@@ -116,12 +116,12 @@ The application also provides endpoints for searching books based on the title o
 
 | File                                                                                                  | Summary                                     |
 | ---                                                                                                   | ---                                         |
-| [Dockerfile](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Dockerfile)           | TODO `Dockerfile`      |
-| [Taskfile.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Taskfile.yml)       | TODO `Taskfile.yml`    |
-| [settings.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/settings.gradle) | TODO `settings.gradle` |
-| [compose.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/compose.yaml)       | TODO `compose.yaml`    |
-| [build.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/build.gradle)       | TODO `build.gradle`    |
-| [gradlew.bat](https://github.com/sst-product-team/zolo-booky-backend/blob/master/gradlew.bat)         | TODO `gradlew.bat`     |
+| [Dockerfile](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Dockerfile)           | Dockerfile for the application.             |
+| [Taskfile.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Taskfile.yml)       | Taskfile for the application.               |
+| [settings.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/settings.gradle) | Settings for the application.               |
+| [compose.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/compose.yaml)       | Docker Compose file for the application.    |
+| [build.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/build.gradle)       | Gradle build file for the application.      |
+| [gradlew.bat](https://github.com/sst-product-team/zolo-booky-backend/blob/master/gradlew.bat)         | Gradle wrapper for Windows.                 |
 
 </details>
 
@@ -129,8 +129,8 @@ The application also provides endpoints for searching books based on the title o
 
 | File                                                                                                                | Summary                                                     |
 | ---                                                                                                                 | ---                                                         |
-| [gradle.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/gradle.yml)       | TODO `.github/workflows/gradle.yml`    |
-| [greetings.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/greetings.yml) | TODO `.github/workflows/greetings.yml` |
+| [gradle.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/gradle.yml)       | GitHub Actions for Gradle.                                  |
+| [greetings.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/greetings.yml) | GitHub Actions for Greetings.                               |
 
 </details>
 
@@ -138,7 +138,7 @@ The application also provides endpoints for searching books based on the title o
 
 | File                                                                                                                       | Summary                                                         |
 | ---                                                                                                                        | ---                                                             |
-| [application.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/resources/application.yaml) | TODO `src/main/resources/application.yaml` |
+| [application.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/resources/application.yaml) | Configuration file for the application.                         |
 
 </details>
 
