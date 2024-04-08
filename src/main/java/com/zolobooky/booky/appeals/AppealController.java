@@ -34,6 +34,8 @@ public class AppealController {
 			appealDTOList.add(modelMapper.map(appealEntity, AppealDTO.class));
 		}
 
+		this.appealService.autoRemoveOutdated();
+
 		return appealDTOList;
 	}
 
@@ -45,6 +47,8 @@ public class AppealController {
 	@PostMapping("/v0/appeals")
 	public ResponseEntity<AppealDTO> createAppeal(@RequestBody CreateAppealDTO createAppealDTO) {
 		AppealEntity appealRegistered = appealService.createAppeal(createAppealDTO);
+
+		this.appealService.autoRemoveOutdated();
 		return ResponseEntity.ok(this.modelMapper.map(appealRegistered, AppealDTO.class));
 	}
 

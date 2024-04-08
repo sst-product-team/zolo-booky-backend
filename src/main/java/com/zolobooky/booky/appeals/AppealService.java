@@ -48,12 +48,10 @@ public class AppealService {
 			BookEntity bookEntity = bookService.getBookById(book);
 			UserEntity userEntity = userService.getUser(user);
 			return appealRepository.findByBookIdAndBorrowerId(bookEntity, userEntity);
-		}
-		else if (book != -1) {
+		} else if (book != -1) {
 			BookEntity bookEntity = bookService.getBookById(book);
 			return appealRepository.findByBookId(bookEntity);
-		}
-		else if (user != -1) {
+		} else if (user != -1) {
 			UserEntity userEntity = userService.getUser(user);
 			return appealRepository.findByBorrowerId(userEntity);
 		}
@@ -166,8 +164,7 @@ public class AppealService {
 				this.fireService.sendNotification(book.getOwner().getFcmToken(),
 						String.format("%s book return completed.", book.getName()),
 						"Thanks for using Zolo-booky.Hope you had a great experience.");
-			}
-			else {
+			} else {
 				book.setRequestCount(book.getRequestCount() - 1);
 				this.bookRepository.save(book);
 
@@ -183,6 +180,20 @@ public class AppealService {
 		log.info(String.format("status of appeal with id: %s updated to %s successfully.", appeal.getTrans_id(),
 				appeal.getTrans_status()));
 		return appealRepository.save(appeal);
+	}
+
+	public void autoRemoveOutdated() {
+		List<AppealEntity> appeals = this.appealRepository.findAll();
+
+		for (AppealEntity appeal : appeals) {
+			if (!appeal.getExpected_completion_date().before(new Date())
+					&& appeal.getTrans_status().equals(CustomStatus.TransactionStatus.PENDING)) {
+				appeal.setCompletion_date(new Date());
+				appeal.setStatus_change_date(new Date());
+				appeal.setTrans_status(CustomStatus.TransactionStatus.REJECTED);
+				this.appealRepository.save(appeal);
+			}
+		}
 	}
 
 }
