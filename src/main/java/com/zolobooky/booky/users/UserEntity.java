@@ -10,10 +10,10 @@ public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer userId;
 
 	@Column(nullable = false)
-	private String name;
+	private String userName;
 
 	@Column(nullable = false)
 	private String fcmToken;

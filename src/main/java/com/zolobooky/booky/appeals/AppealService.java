@@ -94,7 +94,7 @@ public class AppealService {
 		for (var appeal : appeals) {
 			CustomStatus.TransactionStatus ongoing = CustomStatus.TransactionStatus.ONGOING;
 			CustomStatus.TransactionStatus pending = CustomStatus.TransactionStatus.PENDING;
-			if (appeal.getBorrowerId().getId().equals(createAppealDTO.getBorrowerId())
+			if (appeal.getBorrowerId().getUserId().equals(createAppealDTO.getBorrowerId())
 					&& appeal.getBookId().getId().equals(book.getId()) && appeal.getTrans_status() == pending) {
 				log.info(String.format("pending appeal by the same user : %s already exists for the book.",
 						createAppealDTO.getBorrowerId()));
@@ -120,7 +120,7 @@ public class AppealService {
 
 		this.fireService.sendNotification(book.getOwner().getFcmToken(),
 				String.format("Book request for %s", book.getName()),
-				String.format("%s wants to borrow your book %s", user.getName(), book.getName()));
+				String.format("%s wants to borrow your book %s", user.getUserName(), book.getName()));
 
 		log.info(String.format("appeal with id: %s created successfully.", appealEntity.getTrans_id()));
 		return appealRepository.save(appealEntity);
@@ -150,7 +150,7 @@ public class AppealService {
 			this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
 					String.format("Request accepted for %s", book.getName()),
 					String.format("Please collect %s from %s and enjoy your read.", book.getName(),
-							book.getOwner().getName()));
+							book.getOwner().getUserName()));
 
 		}
 

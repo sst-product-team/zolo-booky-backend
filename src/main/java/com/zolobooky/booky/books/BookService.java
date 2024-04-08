@@ -120,12 +120,12 @@ public class BookService {
 		List<UserEntity> users = this.userRepository.findAll();
 
 		for (UserEntity user : users) {
-			if (!user.getName().equals(newBookToSave.getOwner().getName())) {
+			if (!user.getUserName().equals(newBookToSave.getOwner().getUserName())) {
 				// this.fireService.sendNotification(user.getFcmToken(), "New Book
 				// Alert!!",
 				// String.format("New Book %s has been added by %s ",
-				// newBookToSave.getName(),
-				// newBookToSave.getOwner().getName()));
+				// newBookToSave.getUserName(),
+				// newBookToSave.getOwner().getUserName()));
 			}
 
 		}
@@ -151,7 +151,7 @@ public class BookService {
 			for (AppealEntity appeal : appealsOfBook) {
 				if (appeal.getBookId().equals(book)) {
 					// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-					// String.format("Book %s delisted.", book.getName()), "Owner has
+					// String.format("Book %s delisted.", book.getUserName()), "Owner has
 					// delisted the book.");
 				}
 			}

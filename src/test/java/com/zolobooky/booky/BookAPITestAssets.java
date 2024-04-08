@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import java.sql.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -31,8 +30,8 @@ public class BookAPITestAssets {
 	public BookAPITestAssets() {
 
 		UserEntity user1 = new UserEntity();
-		user1.setId(99);
-		user1.setName("Kushagra");
+		user1.setUserId(99);
+		user1.setUserName("Kushagra");
 		user1.setFcmToken("KUSHAGRA-FCM-TOKEN");
 
 		book1 = new BookEntity();
@@ -68,7 +67,7 @@ public class BookAPITestAssets {
 	public CreateBookDTO getCreateBookDTO() {
 		CreateBookDTO bookDTO = new CreateBookDTO();
 		bookDTO.setName(book2.getName());
-		bookDTO.setOwner(book2.getOwner().getId());
+		bookDTO.setOwner(book2.getOwner().getUserId());
 		return bookDTO;
 	}
 
