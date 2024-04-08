@@ -50,13 +50,24 @@
 
 ## 📍 Overview
 
-TODO `overview`
+Zolo's Booky application is an app for the Zolo residents to share books with each other.
+The backend of the application is developed using Java SpringBoot.
+The backend allows to manage books, appeals, users, images, and notifications.
+Books refer to the books that are available for sharing or have been shared by the users.
+Appeals refer to the requests made by the users to borrow a book from another user.
+Users refer to the residents of Zolo who are using the application.
+The images are (expected to be) for the book covers.
+The backend allows searching for books based on the title or author.
+The backend also allows sending notifications to the users using Firebase.
 
 ---
 
 ## 📦 Features
 
-TODO `features`
+The application provides endpoints for creating, updating, deleting, and fetching books, appeals, and users.
+The application also provides endpoints for uploading, fetching, and deleting images.
+Booky also provides endpoints for sending notifications to the users using Firebase.
+The application also provides endpoints for searching books based on the title or author.
 
 ---
 
