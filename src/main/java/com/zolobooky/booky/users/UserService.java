@@ -56,12 +56,19 @@ public class UserService {
 			throw new BadRequestException("Found unexpected null value(s): FCM Token");
 		}
 
-		user.setName(String.format("Zolo Booky User %d", userCount + 1));
+		if (this.userRepository.findByFcmToken(createUserDTO.getFcmToken()) == null) {
+			user.setName(String.format("Zolo Booky User %d", userCount + 1));
+			UserEntity createdUser = this.userRepository.save(user);
+			int userId = createdUser.getId();
+			log.info(String.format("User created with user ID %d", userId));
+			return createdUser;
+		}
 
-		UserEntity createdUser = this.userRepository.save(user);
-		int userId = createdUser.getId();
-		log.info(String.format("User created with user ID %d", userId));
-		return createdUser;
+		int userId = this.userRepository.findByFcmToken(createUserDTO.getFcmToken()).getId();
+		log.info(String.format("User fetched with user ID %d", userId));
+
+		return this.userRepository.findByFcmToken(createUserDTO.getFcmToken());
+
 	}
 
 }
