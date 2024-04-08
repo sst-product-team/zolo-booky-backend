@@ -64,10 +64,10 @@ The backend also allows sending notifications to the users using Firebase.
 
 ## 📦 Features
 
-The application provides endpoints for creating, updating, deleting, and fetching books, appeals, and users.
-The application also provides endpoints for uploading, fetching, and deleting images.
-Booky also provides endpoints for sending notifications to the users using Firebase.
-The application also provides endpoints for searching books based on the title or author.
+- The application provides endpoints for creating, updating, deleting, and fetching books, appeals, and users.
+- The application also provides endpoints for uploading, fetching, and deleting images.
+- Booky also provides endpoints for sending notifications to the users using Firebase.
+- The application also provides endpoints for searching books based on the title or author.
 
 ---
 
