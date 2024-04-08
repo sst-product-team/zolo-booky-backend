@@ -48,10 +48,12 @@ public class AppealService {
 			BookEntity bookEntity = bookService.getBookById(book);
 			UserEntity userEntity = userService.getUser(user);
 			return appealRepository.findByBookIdAndBorrowerId(bookEntity, userEntity);
-		} else if (book != -1) {
+		}
+		else if (book != -1) {
 			BookEntity bookEntity = bookService.getBookById(book);
 			return appealRepository.findByBookId(bookEntity);
-		} else if (user != -1) {
+		}
+		else if (user != -1) {
 			UserEntity userEntity = userService.getUser(user);
 			return appealRepository.findByBorrowerId(userEntity);
 		}
@@ -140,6 +142,9 @@ public class AppealService {
 		BookEntity book = appeal.getBookId();
 
 		if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.ONGOING) {
+			book.setRequestCount(book.getRequestCount() - 1);
+			this.bookRepository.save(book);
+
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.UNAVAILABLE);
 			log.info(String.format("request accepted for %s", book.getName()));
 			this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
@@ -154,8 +159,6 @@ public class AppealService {
 			bookService.updateStatus(book.getId(), CustomStatus.BookStatus.AVAILABLE);
 
 			if (appealDTO.getTrans_status() == CustomStatus.TransactionStatus.COMPLETED) {
-				book.setRequestCount(book.getRequestCount() - 1);
-				this.bookRepository.save(book);
 
 				log.info(String.format("%s book return completed.", book.getName()));
 				this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
@@ -164,7 +167,8 @@ public class AppealService {
 				this.fireService.sendNotification(book.getOwner().getFcmToken(),
 						String.format("%s book return completed.", book.getName()),
 						"Thanks for using Zolo-booky.Hope you had a great experience.");
-			} else {
+			}
+			else {
 				book.setRequestCount(book.getRequestCount() - 1);
 				this.bookRepository.save(book);
 
