@@ -188,13 +188,18 @@ public class AppealService {
 
 	public void autoRemoveOutdated() {
 		List<AppealEntity> appeals = this.appealRepository.findAll();
-
 		for (AppealEntity appeal : appeals) {
 			if (!appeal.getExpected_completion_date().before(new Date())
 					&& appeal.getTrans_status().equals(CustomStatus.TransactionStatus.PENDING)) {
+
+				BookEntity book = this.bookService.getBookById(appeal.getBookId().getId());
 				appeal.setCompletion_date(new Date());
 				appeal.setStatus_change_date(new Date());
 				appeal.setTrans_status(CustomStatus.TransactionStatus.REJECTED);
+
+				book.setRequestCount(book.getRequestCount() - 1);
+				this.bookRepository.save(book);
+
 				this.appealRepository.save(appeal);
 			}
 		}
