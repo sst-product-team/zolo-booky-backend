@@ -432,9 +432,7 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 - Team: 
   - [@cyb3rh4wk](https://github.com/cyb3rh4wk)
-  - [@aatmik-panse](https://github.com/aatmik-panse)
   - [@skushagra](https://github.com/skushagra)
-  - [@pradyutf](https://github.com/pradyutf)
   - [@2k4sm](https://github.com/2k4sm)
   - [@AttAditya](https://github.com/AttAditya)
 
