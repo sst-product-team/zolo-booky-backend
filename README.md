@@ -41,9 +41,7 @@
 >   - [⚙️ Installation](#️-installation)
 >   - [🤖 Running zolo-booky-backend](#-running-zolo-booky-backend)
 >   - [🧪 Tests](#-tests)
-> - [🛠 Project Roadmap](#-project-roadmap)
 > - [🤝 Contributing](#-contributing)
-> - [📄 License](#-license)
 > - [👏 Acknowledgments](#-acknowledgments)
 
 ---
@@ -340,7 +338,7 @@ Ensure you have the following dependencies installed on your system:
 1. Clone the zolo-booky-backend repository:
 
 ```sh
-git clone https://github.com/sst-product-team/zolo-booky-backend
+git clone git@github.com:sst-product-team/zolo-booky-backend.git
 ```
 
 2. Change to the project directory:
@@ -371,26 +369,11 @@ To execute tests, run:
 ./gradlew test
 ```
 
----
-
-[//]: # (## 🛠 Project Roadmap)
-
-[//]: # ()
-[//]: # (- [X] `► INSERT-TASK-1`)
-
-[//]: # (- [ ] `► INSERT-TASK-2`)
-
-[//]: # (- [ ] `► ...`)
-
-[//]: # ()
-[//]: # (---)
-
 ## 🤝 Contributing
 
 Contributions are welcome! Here are several ways you can contribute:
 
 - **[Submit Pull Requests](https://github.com/sst-product-team/zolo-booky-backend/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/sst-product-team/zolo-booky-backend/discussions)**: Share your insights, provide feedback, or ask questions.
 - **[Report Issues](https://github.com/sst-product-team/zolo-booky-backend/issues)**: Submit bugs found or log feature requests for Zolo-booky-backend.
 
 <details closed>
@@ -399,7 +382,7 @@ Contributions are welcome! Here are several ways you can contribute:
 1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
 2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
    ```sh
-   git clone https://github.com/sst-product-team/zolo-booky-backend
+   git clone git@github.com:sst-product-team/zolo-booky-backend.git
    ```
 3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
    ```sh
@@ -419,12 +402,6 @@ Contributions are welcome! Here are several ways you can contribute:
 Once your PR is reviewed and approved, it will be merged into the main branch.
 
 </details>
-
----
-
-## 📄 License
-
-This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
