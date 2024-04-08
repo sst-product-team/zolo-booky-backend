@@ -50,13 +50,24 @@
 
 ## 📍 Overview
 
-TODO `overview`
+Zolo's Booky application is an app for the Zolo residents to share books with each other.
+The backend of the application is developed using Java SpringBoot.
+The backend allows to manage books, appeals, users, images, and notifications.
+Books refer to the books that are available for sharing or have been shared by the users.
+Appeals refer to the requests made by the users to borrow a book from another user.
+Users refer to the residents of Zolo who are using the application.
+The images are (expected to be) for the book covers.
+The backend allows searching for books based on the title or author.
+The backend also allows sending notifications to the users using Firebase.
 
 ---
 
 ## 📦 Features
 
-TODO `features`
+The application provides endpoints for creating, updating, deleting, and fetching books, appeals, and users.
+The application also provides endpoints for uploading, fetching, and deleting images.
+Booky also provides endpoints for sending notifications to the users using Firebase.
+The application also provides endpoints for searching books based on the title or author.
 
 ---
 
@@ -105,12 +116,12 @@ TODO `features`
 
 | File                                                                                                  | Summary                                     |
 | ---                                                                                                   | ---                                         |
-| [Dockerfile](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Dockerfile)           | TODO `Dockerfile`      |
-| [Taskfile.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Taskfile.yml)       | TODO `Taskfile.yml`    |
-| [settings.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/settings.gradle) | TODO `settings.gradle` |
-| [compose.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/compose.yaml)       | TODO `compose.yaml`    |
-| [build.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/build.gradle)       | TODO `build.gradle`    |
-| [gradlew.bat](https://github.com/sst-product-team/zolo-booky-backend/blob/master/gradlew.bat)         | TODO `gradlew.bat`     |
+| [Dockerfile](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Dockerfile)           | Dockerfile for the application.             |
+| [Taskfile.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/Taskfile.yml)       | Taskfile for the application.               |
+| [settings.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/settings.gradle) | Settings for the application.               |
+| [compose.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/compose.yaml)       | Docker Compose file for the application.    |
+| [build.gradle](https://github.com/sst-product-team/zolo-booky-backend/blob/master/build.gradle)       | Gradle build file for the application.      |
+| [gradlew.bat](https://github.com/sst-product-team/zolo-booky-backend/blob/master/gradlew.bat)         | Gradle wrapper for Windows.                 |
 
 </details>
 
@@ -118,8 +129,8 @@ TODO `features`
 
 | File                                                                                                                | Summary                                                     |
 | ---                                                                                                                 | ---                                                         |
-| [gradle.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/gradle.yml)       | TODO `.github/workflows/gradle.yml`    |
-| [greetings.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/greetings.yml) | TODO `.github/workflows/greetings.yml` |
+| [gradle.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/gradle.yml)       | GitHub Actions for Gradle.                                  |
+| [greetings.yml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/.github/workflows/greetings.yml) | GitHub Actions for Greetings.                               |
 
 </details>
 
@@ -127,16 +138,16 @@ TODO `features`
 
 | File                                                                                                                       | Summary                                                         |
 | ---                                                                                                                        | ---                                                             |
-| [application.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/resources/application.yaml) | TODO `src/main/resources/application.yaml` |
+| [application.yaml](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/resources/application.yaml) | Configuration file for the application.                         |
 
 </details>
 
 <details closed><summary>src.main.java.com.zolobooky.booky</summary>
 
-| File                                                                                                                                                | Summary                                                                             |
-| ---                                                                                                                                                 | ---                                                                                 |
-| [OpenApiConfig.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/OpenApiConfig.java)       | TODO `src/main/java/com/zolobooky/booky/OpenApiConfig.java`    |
-| [BookyApplication.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/BookyApplication.java) | TODO `src/main/java/com/zolobooky/booky/BookyApplication.java` |
+| File                                                                                                                                                | Summary                                                     |
+| ---                                                                                                                                                 |-------------------------------------------------------------|
+| [OpenApiConfig.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/OpenApiConfig.java)       | OpenAPI Configuration file for the application.             |
+| [BookyApplication.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/BookyApplication.java) | It is the main file that is run to start the project.       |
 
 </details>
 
@@ -144,7 +155,7 @@ TODO `features`
 
 | File                                                                                                                                                  | Summary                                                                                  |
 | ---                                                                                                                                                   | ---                                                                                      |
-| [HelperMethods.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/helpers/HelperMethods.java) | TODO `src/main/java/com/zolobooky/booky/helpers/HelperMethods.java` |
+| [HelperMethods.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/helpers/HelperMethods.java) | Contains helper methods that are used in the application.                                |
 
 </details>
 
@@ -152,9 +163,9 @@ TODO `features`
 
 | File                                                                                                                                                          | Summary                                                                                         |
 | ---                                                                                                                                                           | ---                                                                                             |
-| [FireInit.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireInit.java)             | TODO `src/main/java/com/zolobooky/booky/notifications/FireInit.java`       |
-| [FireController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireController.java) | TODO `src/main/java/com/zolobooky/booky/notifications/FireController.java` |
-| [FireService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireService.java)       | TODO `src/main/java/com/zolobooky/booky/notifications/FireService.java`    |
+| [FireInit.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireInit.java)             | Initializes the Firebase App.                                                                   |
+| [FireController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireController.java) | Fire Controller(`/v0/fire`), contains endpoints for sending notifications.                      |
+| [FireService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireService.java)       | Services for the fire controller.                                                               |
 
 </details>
 
@@ -162,7 +173,7 @@ TODO `features`
 
 | File                                                                                                                                                                             | Summary                                                                                                          |
 | ---                                                                                                                                                                              | ---                                                                                                              |
-| [FireSendingError.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireExceptions/FireSendingError.java) | TODO `src/main/java/com/zolobooky/booky/notifications/FireExceptions/FireSendingError.java` |
+| [FireSendingError.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/FireExceptions/FireSendingError.java) | Exception for fire when error occurs while sending notification.                                                 |
 
 </details>
 
@@ -170,16 +181,16 @@ TODO `features`
 
 | File                                                                                                                                                            | Summary                                                                                            |
 | ---                                                                                                                                                             | ---                                                                                                |
-| [SendFireDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/dto/SendFireDTO.java)     | TODO `src/main/java/com/zolobooky/booky/notifications/dto/SendFireDTO.java`   |
-| [CreateFireDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/dto/CreateFireDTO.java) | TODO `src/main/java/com/zolobooky/booky/notifications/dto/CreateFireDTO.java` |
+| [SendFireDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/dto/SendFireDTO.java)     | Data Transfer Object for Fire Model that will be shown when sending a notification.                |
+| [CreateFireDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/notifications/dto/CreateFireDTO.java) | Data Transfer Object for Fire Model that is required to create a new notification.                 |
 
 </details>
 
 <details closed><summary>src.main.java.com.zolobooky.booky.dashboard</summary>
 
-| File                                                                                                                                                                | Summary                                                                                          |
-| ---                                                                                                                                                                 | ---                                                                                              |
-| [DashboardController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/dashboard/DashboardController.java) | TODO `src/main/java/com/zolobooky/booky/dashboard/DashboardController.java` |
+| File                                                                                                                                                                | Summary   |
+| ---                                                                                                                                                                 |-----------|
+| [DashboardController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/dashboard/DashboardController.java) | Root Endpoint(`/`). Returns current time. | 
 
 </details>
 
@@ -187,10 +198,10 @@ TODO `features`
 
 | File                                                                                                                                                  | Summary                                                                                 |
 | ---                                                                                                                                                   | ---                                                                                     |
-| [UserEntity.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserEntity.java)         | TODO `src/main/java/com/zolobooky/booky/users/UserEntity.java`     |
-| [UserService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserService.java)       | TODO `src/main/java/com/zolobooky/booky/users/UserService.java`    |
-| [UserRepository.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserRepository.java) | TODO `src/main/java/com/zolobooky/booky/users/UserRepository.java` |
-| [UserController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserController.java) | TODO `src/main/java/com/zolobooky/booky/users/UserController.java` |
+| [UserEntity.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserEntity.java)         | Model of a user being used in the application.                                          |
+| [UserService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserService.java)       | Services for the users controller.                                                      |
+| [UserRepository.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserRepository.java) | Helper for getting the data from the database.                                          |
+| [UserController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/UserController.java) | User Controller(`/v0/users`), contains endpoints related directly to the user.          |
 
 </details>
 
@@ -198,8 +209,8 @@ TODO `features`
 
 | File                                                                                                                                                    | Summary                                                                                    |
 | ---                                                                                                                                                     | ---                                                                                        |
-| [ListUserDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/dto/ListUserDTO.java)     | TODO `src/main/java/com/zolobooky/booky/users/dto/ListUserDTO.java`   |
-| [CreateUserDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/dto/CreateUserDTO.java) | TODO `src/main/java/com/zolobooky/booky/users/dto/CreateUserDTO.java` |
+| [ListUserDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/dto/ListUserDTO.java)     | Data Transfer Object for User Model that will be shown when list of users is being accessed. |
+| [CreateUserDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/users/dto/CreateUserDTO.java) | Data Transfer Object for User Model that is required to create a new user.                   |
 
 </details>
 
@@ -207,10 +218,10 @@ TODO `features`
 
 | File                                                                                                                                                        | Summary                                                                                     |
 | ---                                                                                                                                                         | ---                                                                                         |
-| [AppealController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealController.java) | TODO `src/main/java/com/zolobooky/booky/appeals/AppealController.java` |
-| [AppealEntity.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealEntity.java)         | TODO `src/main/java/com/zolobooky/booky/appeals/AppealEntity.java`     |
-| [AppealRepository.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealRepository.java) | TODO `src/main/java/com/zolobooky/booky/appeals/AppealRepository.java` |
-| [AppealService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealService.java)       | TODO `src/main/java/com/zolobooky/booky/appeals/AppealService.java`    |
+| [AppealController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealController.java) | Appeals Controller(`/v0/appeals`), contains endpoints related directly to the user.         |
+| [AppealEntity.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealEntity.java)         | Model of an appeal being used in the application.                                           |
+| [AppealRepository.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealRepository.java) | Helper for getting the data from the database.                                              |
+| [AppealService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealService.java)       | Services for the appeals controller.                                                        |
 
 </details>
 
@@ -218,20 +229,20 @@ TODO `features`
 
 | File                                                                                                                                                          | Summary                                                                                        |
 | ---                                                                                                                                                           | ---                                                                                            |
-| [CreateAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/CreateAppealDTO.java) | TODO `src/main/java/com/zolobooky/booky/appeals/dto/CreateAppealDTO.java` |
-| [UpdateAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/UpdateAppealDTO.java) | TODO `src/main/java/com/zolobooky/booky/appeals/dto/UpdateAppealDTO.java` |
-| [StatusAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/StatusAppealDTO.java) | TODO `src/main/java/com/zolobooky/booky/appeals/dto/StatusAppealDTO.java` |
-| [ShortAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/ShortAppealDTO.java)   | TODO `src/main/java/com/zolobooky/booky/appeals/dto/ShortAppealDTO.java`  |
-| [AppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/AppealDTO.java)             | TODO `src/main/java/com/zolobooky/booky/appeals/dto/AppealDTO.java`       |
+| [CreateAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/CreateAppealDTO.java) | Data Transfer Object for Appeal Model that is required to create a new appeal.                 |
+| [UpdateAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/UpdateAppealDTO.java) | Data Transfer Object for Appeal Model that is required to update an appeal.                    |
+| [StatusAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/StatusAppealDTO.java) | Data Transfer Object for Appeal Model that is required to change status of an appeal.          |
+| [ShortAppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/ShortAppealDTO.java)   | TODO `src/main/java/com/zolobooky/booky/appeals/dto/ShortAppealDTO.java`                       |
+| [AppealDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/dto/AppealDTO.java)             | Data Transfer Object for Appeal Model that all attributes appeal.                              |
 
 </details>
 
 <details closed><summary>src.main.java.com.zolobooky.booky.appeals.AppealExceptions</summary>
 
-| File                                                                                                                                                                                                 | Summary                                                                                                                  |
-| ---                                                                                                                                                                                                  | ---                                                                                                                      |
-| [AppealAlreadyExistsException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealExceptions/AppealAlreadyExistsException.java) | TODO `src/main/java/com/zolobooky/booky/appeals/AppealExceptions/AppealAlreadyExistsException.java` |
-| [AppealNotFoundException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealExceptions/AppealNotFoundException.java)           | TODO `src/main/java/com/zolobooky/booky/appeals/AppealExceptions/AppealNotFoundException.java`      |
+| File                                                                                                                                                                                                 | Summary                                                    |
+| ---                                                                                                                                                                                                  | ---                                                        |
+| [AppealAlreadyExistsException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealExceptions/AppealAlreadyExistsException.java) | Exception for appeal when it already exists.               |
+| [AppealNotFoundException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/appeals/AppealExceptions/AppealNotFoundException.java)           | Exception for appeal when it doest not exist.              |
 
 </details>
 
@@ -239,9 +250,9 @@ TODO `features`
 
 | File                                                                                                                                                                    | Summary                                                                                           |
 | ---                                                                                                                                                                     | ---                                                                                               |
-| [ExceptionResponse.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/commons/ExceptionResponse.java)           | TODO `src/main/java/com/zolobooky/booky/commons/ExceptionResponse.java`      |
-| [GlobalExceptionHandler.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/commons/GlobalExceptionHandler.java) | TODO `src/main/java/com/zolobooky/booky/commons/GlobalExceptionHandler.java` |
-| [CustomStatus.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/commons/CustomStatus.java)                     | TODO `src/main/java/com/zolobooky/booky/commons/CustomStatus.java`           |
+| [ExceptionResponse.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/commons/ExceptionResponse.java)           | Response class that is returned when an exception occurs.                            |
+| [GlobalExceptionHandler.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/commons/GlobalExceptionHandler.java) | Global exception handlers, handles all the exceptions that occur in the application. |
+| [CustomStatus.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/commons/CustomStatus.java)                     | Statuses for the book and appeals.                                                   |
 
 </details>
 
@@ -249,10 +260,10 @@ TODO `features`
 
 | File                                                                                                                                                  | Summary                                                                                 |
 | ---                                                                                                                                                   | ---                                                                                     |
-| [BookEntity.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookEntity.java)         | TODO `src/main/java/com/zolobooky/booky/books/BookEntity.java`     |
-| [BookController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookController.java) | TODO `src/main/java/com/zolobooky/booky/books/BookController.java` |
-| [BookRepository.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookRepository.java) | TODO `src/main/java/com/zolobooky/booky/books/BookRepository.java` |
-| [BookService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookService.java)       | TODO `src/main/java/com/zolobooky/booky/books/BookService.java`    |
+| [BookEntity.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookEntity.java)         | Model of a book being used in the application.                                          |
+| [BookController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookController.java) | Books Controller(`/v0/books`), contains endpoints related directly to the book.         |
+| [BookRepository.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookRepository.java) | Helper for getting the data from the database.                                          |
+| [BookService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookService.java)       | Services for the books controller.                                                      |
 
 </details>
 
@@ -260,20 +271,20 @@ TODO `features`
 
 | File                                                                                                                                                                                         | Summary                                                                                                            |
 | ---                                                                                                                                                                                          | ---                                                                                                                |
-| [BookAlreadyExistsException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookExceptions/BookAlreadyExistsException.java) | TODO `src/main/java/com/zolobooky/booky/books/BookExceptions/BookAlreadyExistsException.java` |
-| [BookNotFoundException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookExceptions/BookNotFoundException.java)           | TODO `src/main/java/com/zolobooky/booky/books/BookExceptions/BookNotFoundException.java`      |
-| [BadRequestException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookExceptions/BadRequestException.java)               | TODO `src/main/java/com/zolobooky/booky/books/BookExceptions/BadRequestException.java`        |
+| [BookAlreadyExistsException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookExceptions/BookAlreadyExistsException.java) | Exception for book when it already exists.           |
+| [BookNotFoundException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookExceptions/BookNotFoundException.java)           | Exception for book when it doest not exist.          |
+| [BadRequestException.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/BookExceptions/BadRequestException.java)               | Exception for book when invalid request is made.     |
 
 </details>
 
 <details closed><summary>src.main.java.com.zolobooky.booky.books.dto</summary>
 
-| File                                                                                                                                                    | Summary                                                                                    |
-| ---                                                                                                                                                     | ---                                                                                        |
-| [ListBookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/ListBookDTO.java)     | TODO `src/main/java/com/zolobooky/booky/books/dto/ListBookDTO.java`   |
-| [BookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/BookDTO.java)             | TODO `src/main/java/com/zolobooky/booky/books/dto/BookDTO.java`       |
-| [UpdateBookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/UpdateBookDTO.java) | TODO `src/main/java/com/zolobooky/booky/books/dto/UpdateBookDTO.java` |
-| [CreateBookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/CreateBookDTO.java) | TODO `src/main/java/com/zolobooky/booky/books/dto/CreateBookDTO.java` |
+| File                                                                                                                                                    | Summary                                                                                      |
+| ---                                                                                                                                                     | ---                                                                                          |
+| [ListBookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/ListBookDTO.java)     | Data Transfer Object for Book Model that will be shown when list of books is being accessed. |
+| [BookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/BookDTO.java)             | Data Transfer Object for Book Model that all attributes book.                                |
+| [UpdateBookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/UpdateBookDTO.java) | Data Transfer Object for Book Model that is required to update a book.                       |
+| [CreateBookDTO.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/books/dto/CreateBookDTO.java) | Data Transfer Object for Book Model that is required to create a new book.                   |
 
 </details>
 
@@ -281,8 +292,8 @@ TODO `features`
 
 | File                                                                                                                                                       | Summary                                                                                    |
 | ---                                                                                                                                                        | ---                                                                                        |
-| [SearchService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/search/SearchService.java)       | TODO `src/main/java/com/zolobooky/booky/search/SearchService.java`    |
-| [SearchController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/search/SearchController.java) | TODO `src/main/java/com/zolobooky/booky/search/SearchController.java` |
+| [SearchService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/search/SearchService.java)       | Services for the search controller.                                                        |
+| [SearchController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/search/SearchController.java) | Search Controller(`/v0/search`), contains endpoints related directly to the search.        |
 
 </details>
 
@@ -290,9 +301,9 @@ TODO `features`
 
 | File                                                                                                                                                   | Summary                                                                                  |
 | ---                                                                                                                                                    | ---                                                                                      |
-| [BlobService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/BlobService.java)       | TODO `src/main/java/com/zolobooky/booky/images/BlobService.java`    |
-| [BlobConfig.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/BlobConfig.java)         | TODO `src/main/java/com/zolobooky/booky/images/BlobConfig.java`     |
-| [BlobController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/BlobController.java) | TODO `src/main/java/com/zolobooky/booky/images/BlobController.java` |
+| [BlobService.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/BlobService.java)       | Services for the images controller.                                                      |
+| [BlobConfig.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/BlobConfig.java)         | Configuration for the images controller.                                                 |
+| [BlobController.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/BlobController.java) | Images Controller(`/v0/images`), contains endpoints to upload, get and delete images.    |
 
 </details>
 
@@ -300,7 +311,7 @@ TODO `features`
 
 | File                                                                                                                                                                                     | Summary                                                                                                           |
 | ---                                                                                                                                                                                      | ---                                                                                                               |
-| [ImageNotFoundExceptions.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/ImageExceptions/ImageNotFoundExceptions.java) | TODO `src/main/java/com/zolobooky/booky/images/ImageExceptions/ImageNotFoundExceptions.java` |
+| [ImageNotFoundExceptions.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/main/java/com/zolobooky/booky/images/ImageExceptions/ImageNotFoundExceptions.java) | Exception for image when it doest not exist.                                                                      |
 
 </details>
 
@@ -308,9 +319,9 @@ TODO `features`
 
 | File                                                                                                                                                          | Summary                                                                                  |
 | ---                                                                                                                                                           | ---                                                                                      |
-| [BookyApplicationTests.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/test/java/com/zolobooky/booky/BookyApplicationTests.java) | TODO `src/test/java/com/zolobooky/booky/BookyApplicationTests.java` |
-| [BookServiceTest.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/test/java/com/zolobooky/booky/BookServiceTest.java)             | TODO `src/test/java/com/zolobooky/booky/BookServiceTest.java`       |
-| [BookAPITestAssets.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/test/java/com/zolobooky/booky/BookAPITestAssets.java)         | TODO `src/test/java/com/zolobooky/booky/BookAPITestAssets.java`     |
+| [BookyApplicationTests.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/test/java/com/zolobooky/booky/BookyApplicationTests.java) | Test for the main application.                                                           |
+| [BookServiceTest.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/test/java/com/zolobooky/booky/BookServiceTest.java)             | Test for the book service.                                                               |
+| [BookAPITestAssets.java](https://github.com/sst-product-team/zolo-booky-backend/blob/master/src/test/java/com/zolobooky/booky/BookAPITestAssets.java)         | Assets(helper methods, constants) for the book API tests.                                |
 
 </details>
 
@@ -322,7 +333,7 @@ TODO `features`
 
 Ensure you have the following dependencies installed on your system:
 
-* **Java**: `version x.y.z`
+* **Java**: `version 17`
 
 ### ⚙️ Installation
 
@@ -341,7 +352,7 @@ cd zolo-booky-backend
 3. Install the dependencies:
 
 ```sh
-mvn clean install
+./gradlew clean build
 ```
 
 ### 🤖 Running zolo-booky-backend
@@ -349,7 +360,7 @@ mvn clean install
 Use the following command to run zolo-booky-backend:
 
 ```sh
-java -jar target/myapp.jar
+java -jar build/libs/booky-0.0.1-SNAPSHOT.jar
 ```
 
 ### 🧪 Tests
@@ -357,18 +368,22 @@ java -jar target/myapp.jar
 To execute tests, run:
 
 ```sh
-mvn test
+./gradlew test
 ```
 
 ---
 
-## 🛠 Project Roadmap
+[//]: # (## 🛠 Project Roadmap)
 
-- [X] `► INSERT-TASK-1`
-- [ ] `► INSERT-TASK-2`
-- [ ] `► ...`
+[//]: # ()
+[//]: # (- [X] `► INSERT-TASK-1`)
 
----
+[//]: # (- [ ] `► INSERT-TASK-2`)
+
+[//]: # (- [ ] `► ...`)
+
+[//]: # ()
+[//]: # (---)
 
 ## 🤝 Contributing
 
@@ -415,7 +430,11 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 ## 👏 Acknowledgments
 
-- List any resources, contributors, inspiration, etc. here.
+- Team: 
+  - [@cyb3rh4wk](https://github.com/cyb3rh4wk)
+  - [@skushagra](https://github.com/skushagra)
+  - [@2k4sm](https://github.com/2k4sm)
+  - [@AttAditya](https://github.com/AttAditya)
 
 [**Return**](#-quick-links)
 
