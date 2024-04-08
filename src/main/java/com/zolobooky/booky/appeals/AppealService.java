@@ -48,10 +48,12 @@ public class AppealService {
 			BookEntity bookEntity = bookService.getBookById(book);
 			UserEntity userEntity = userService.getUser(user);
 			return appealRepository.findByBookIdAndBorrowerId(bookEntity, userEntity);
-		} else if (book != -1) {
+		}
+		else if (book != -1) {
 			BookEntity bookEntity = bookService.getBookById(book);
 			return appealRepository.findByBookId(bookEntity);
-		} else if (user != -1) {
+		}
+		else if (user != -1) {
 			UserEntity userEntity = userService.getUser(user);
 			return appealRepository.findByBorrowerId(userEntity);
 		}
@@ -165,7 +167,8 @@ public class AppealService {
 				this.fireService.sendNotification(book.getOwner().getFcmToken(),
 						String.format("%s book return completed.", book.getName()),
 						"Thanks for using Zolo-booky.Hope you had a great experience.");
-			} else {
+			}
+			else {
 				book.setRequestCount(book.getRequestCount() - 1);
 				this.bookRepository.save(book);
 
@@ -196,7 +199,7 @@ public class AppealService {
 
 				book.setRequestCount(book.getRequestCount() - 1);
 				this.bookRepository.save(book);
-				
+
 				this.appealRepository.save(appeal);
 			}
 		}
