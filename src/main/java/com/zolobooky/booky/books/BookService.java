@@ -34,19 +34,18 @@ public class BookService {
 
 	private final UserService userService;
 
-	 @Autowired
-	 private final FireService fireService;
+	@Autowired
+	private final FireService fireService;
 
 	private final UserRepository userRepository;
 
 	private final AppealRepository appealRepository;
 
-	public BookService(BookRepository bookRepository, UserService userService,
-			 FireService fireService,
+	public BookService(BookRepository bookRepository, UserService userService, FireService fireService,
 			AppealRepository appealRepository, UserRepository userRepository) {
 		this.bookRepository = bookRepository;
 		this.userService = userService;
-		 this.fireService = fireService;
+		this.fireService = fireService;
 		this.userRepository = userRepository;
 		this.appealRepository = appealRepository;
 	}
@@ -123,10 +122,9 @@ public class BookService {
 
 		for (UserEntity user : users) {
 			if (!user.getName().equals(newBookToSave.getOwner().getName())) {
-				 this.fireService.sendNotification(user.getFcmToken(), "New BookAlert!!",
-				 String.format("New Book %s has been added by %s ",
-				 newBookToSave.getName(),
-				 newBookToSave.getOwner().getName()));
+				this.fireService.sendNotification(user.getFcmToken(), "New BookAlert!!",
+						String.format("New Book %s has been added by %s ", newBookToSave.getName(),
+								newBookToSave.getOwner().getName()));
 			}
 
 		}
@@ -151,8 +149,8 @@ public class BookService {
 
 			for (AppealEntity appeal : appealsOfBook) {
 				if (appeal.getBookId().equals(book)) {
-					 this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
-					 String.format("Book %s delisted.", book.getName()), "Owner has delisted the book.");
+					this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
+							String.format("Book %s delisted.", book.getName()), "Owner has delisted the book.");
 				}
 			}
 		}
