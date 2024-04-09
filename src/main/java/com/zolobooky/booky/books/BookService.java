@@ -11,6 +11,7 @@ import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.commons.CustomStatus.BookStatus;
 import com.zolobooky.booky.helpers.HelperMethods;
 //import com.zolobooky.booky.notifications.FireService;
+import com.zolobooky.booky.notifications.FireService;
 import com.zolobooky.booky.users.UserEntity;
 import com.zolobooky.booky.users.UserRepository;
 import com.zolobooky.booky.users.UserService;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,19 +34,19 @@ public class BookService {
 
 	private final UserService userService;
 
-	// @Autowired
-	// private final FireService fireService;
+	 @Autowired
+	 private final FireService fireService;
 
 	private final UserRepository userRepository;
 
 	private final AppealRepository appealRepository;
 
 	public BookService(BookRepository bookRepository, UserService userService,
-			// FireService fireService,
+			 FireService fireService,
 			AppealRepository appealRepository, UserRepository userRepository) {
 		this.bookRepository = bookRepository;
 		this.userService = userService;
-		// this.fireService = fireService;
+		 this.fireService = fireService;
 		this.userRepository = userRepository;
 		this.appealRepository = appealRepository;
 	}
@@ -121,11 +123,10 @@ public class BookService {
 
 		for (UserEntity user : users) {
 			if (!user.getName().equals(newBookToSave.getOwner().getName())) {
-				// this.fireService.sendNotification(user.getFcmToken(), "New Book
-				// Alert!!",
-				// String.format("New Book %s has been added by %s ",
-				// newBookToSave.getName(),
-				// newBookToSave.getOwner().getName()));
+				 this.fireService.sendNotification(user.getFcmToken(), "New BookAlert!!",
+				 String.format("New Book %s has been added by %s ",
+				 newBookToSave.getName(),
+				 newBookToSave.getOwner().getName()));
 			}
 
 		}
@@ -150,9 +151,8 @@ public class BookService {
 
 			for (AppealEntity appeal : appealsOfBook) {
 				if (appeal.getBookId().equals(book)) {
-					// this.fireService.sendNotification(appeal.getBorrower_id().getFcmToken(),
-					// String.format("Book %s delisted.", book.getName()), "Owner has
-					// delisted the book.");
+					 this.fireService.sendNotification(appeal.getBorrowerId().getFcmToken(),
+					 String.format("Book %s delisted.", book.getName()), "Owner has delisted the book.");
 				}
 			}
 		}
