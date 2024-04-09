@@ -30,11 +30,11 @@ public class AppealController {
 		List<AppealEntity> appealsList = appealService.getAllAppeals(book, user);
 		List<AppealDTO> appealDTOList = new ArrayList<>();
 
+		this.appealService.autoReject();
+
 		for (AppealEntity appealEntity : appealsList) {
 			appealDTOList.add(modelMapper.map(appealEntity, AppealDTO.class));
 		}
-
-
 		return appealDTOList;
 	}
 
