@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
@@ -193,7 +191,6 @@ public class AppealService {
 		List<AppealEntity> appeals = appealRepository.findAll();
 		if (!appeals.isEmpty()) {
 			for (AppealEntity appeal : appeals) {
-				log.warn(appeal.getExpected_completion_date().toString());
 				LocalDate edt = LocalDate.parse(appeal.getExpected_completion_date().toString().substring(0, 10));
 				if (edt.isBefore(LocalDate.now())
 						&& appeal.getTrans_status().equals(CustomStatus.TransactionStatus.PENDING)) {
