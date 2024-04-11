@@ -2,6 +2,7 @@ package com.zolobooky.booky;
 
 import com.zolobooky.booky.books.BookEntity;
 import com.zolobooky.booky.books.dto.CreateBookDTO;
+import com.zolobooky.booky.books.dto.UpdateBookDTO;
 import com.zolobooky.booky.commons.CustomStatus;
 import com.zolobooky.booky.users.UserEntity;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,13 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import java.sql.Date;
 import java.util.List;
 
 @SpringBootTest
 public class BookAPITestAssets {
 
-	private List<BookEntity> books;
+	private final List<BookEntity> books;
 
 	public BookEntity book1;
 
@@ -65,11 +65,47 @@ public class BookAPITestAssets {
 		return book1;
 	}
 
-	public CreateBookDTO getCreateBookDTO() {
-		CreateBookDTO bookDTO = new CreateBookDTO();
-		bookDTO.setName(book2.getName());
-		bookDTO.setOwner(book2.getOwner().getId());
-		return bookDTO;
+	/*
+	 * public CreateBookDTO getCreateBookDTO() { CreateBookDTO bookDTO = new
+	 * CreateBookDTO(); bookDTO.setName(book2.getName());
+	 * bookDTO.setOwner(book2.getOwner().getId()); return bookDTO; }
+	 */
+
+	public String toJSONString(CreateBookDTO dto) {
+		String name = dto.getName();
+		String author = dto.getAuthor();
+		String description = dto.getDescription();
+		Integer maxBorrow = dto.getMaxBorrow();
+		String thumbnail = dto.getThumbnail();
+		Integer owner = dto.getOwner();
+
+		return "{" + "\"name\": \"" + name + "\", " + "\"author\": \"" + author + "\", " + "\"description\": \""
+				+ description + "\", " + "\"maxBorrow\":" + maxBorrow + ", " + "\"thumbnail\": \"" + thumbnail + "\", "
+				+ "\"owner\": \"" + owner + "\"" + "}";
+	}
+
+	public String toJSONString(UpdateBookDTO dto) {
+		String name = dto.getName();
+		String author = dto.getAuthor();
+		String description = dto.getDescription();
+		Integer maxBorrow = dto.getMaxBorrow();
+		String thumbnail = dto.getThumbnail();
+
+		return "{" + "\"name\": \"" + name + "\", " + "\"author\": \"" + author + "\", " + "\"description\": \""
+				+ description + "\", " + "\"maxBorrow\": " + maxBorrow + ", " + "\"thumbnail\": \"" + thumbnail + "\""
+				+ "}";
+	}
+
+	public BookEntity createBook() {
+		return book1;
+	}
+
+	public BookEntity updateBook() {
+		return book1;
+	}
+
+	public BookEntity updateBookStatus() {
+		return book1;
 	}
 
 }
